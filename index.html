@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Hashing Demo</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Password Hashing Demo</h1>
+        <div class="form-group">
+            <label for="passwordInput">Enter Password:</label>
+            <input type="password" class="form-control" id="passwordInput">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="hashPassword()">Hash Password</button>
+        <div id="hashedPasswordResult" class="mt-3"></div>
+    </div>
+
+    <!-- Link to Bootstrap JS and custom script -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        async function hashPassword() {
+            var passwordInput = document.getElementById('passwordInput').value;
+            var hashedPasswordResult = document.getElementById('hashedPasswordResult');
+
+            try {
+                // Compute SHA-256 hash
+                var hashedPassword = await sha256(passwordInput);
+
+                // Display hashed password
+                hashedPasswordResult.innerHTML = `
+                    <div class="alert alert-success" role="alert">
+                        Hashed Password: ${hashedPassword}
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error hashing password:', error);
+                hashedPasswordResult.innerHTML = `
+                    <div class="alert alert-danger" role="alert">
+                        Error hashing password. Please try again.
+                    </div>
+                `;
+            }
+        }
+
+        // SHA-256 hash function (using crypto.subtle.digest)
+        async function sha256(input) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
+            return hashHex;
+        }
+    </script>
+</body>
+
+</html>
