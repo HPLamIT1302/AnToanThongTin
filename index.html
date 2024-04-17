@@ -10,82 +10,206 @@
     <script src="./jquery-3.7.1.min.js"></script>
     <script src="./bootstrap.min.js"></script>
 
+    <script src="./crypto-js.min.js"></script>
     <script src="./md5.min.js"></script>
     <script src="./sha256.min.js"></script>
 
     <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style-type: none;
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: justify;
+        }
 
+        body {
+            box-sizing: border-box;
+            background-color: aliceblue;
+        }
+
+        header {
+            /* border: 1px solid red; */
+        }
+
+        section {
+            /* border: 1px solid blue; */
+        }
+
+        footer {
+            background-color: #aaa;
+            padding: 20px;
+            /* position: fixed; */
+            width: 100%;
+            height: 100%;
+            /* border: 1px solid red; */
+        }
+
+        img {
+            object-fit: cover;
+            width: 300px;
+            height: 100%;
+            /* border: 1px solid blue; */
+            /* overflow: hidden; */
+        }
+
+        .noi-dung {
+            border: 1px solid #aaa;
+            border-radius: 20px;
+            padding: 10px;
+            background-color: white;
+            transition: 0.3s ease;
+        }
+
+        .noi-dung:hover {
+            transform: scale(1.05);
+        }
+
+
+
+        #navbarNav li {
+            transition: transform 0.3s ease;
+        }
+
+        #navbarNav li:hover {
+            transform: translateY(-5px);
+        }
+
+        /* CSS cho các mục menu */
+        .nav-item {
+            margin-right: 10px;
+            /* Khoảng cách giữa các mục menu */
+        }
     </style>
 
     <script>
+        // Chuỗi cần băm
+        const inputString = 'Hello, world!';
 
+        // Băm với MD5
+        const md5Hash = CryptoJS.MD5(inputString).toString();
+        console.log('MD5 Hash:', md5Hash);
+
+        // Băm với SHA-1
+        const sha1Hash = CryptoJS.SHA1(inputString).toString();
+        console.log('SHA-1 Hash:', sha1Hash);
+
+        // Băm với SHA-256
+        const sha256Hash = CryptoJS.SHA256(inputString).toString();
+        console.log('SHA-256 Hash:', sha256Hash);
     </script>
 </head>
 
 <body>
-
-    <div id="navbar stick-top">
-        <nav class="navbar navbar-expand-sm bg-dark">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="./index.html">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Hàm Băm</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Hàm MD5</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Hàm SHA-256</a>
-                </li>
-            </ul>
+    <!-- header -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">LamHPIT13</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav  ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#hambam">Giới thiệu Hàm băm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#md5">Hàm Băm MD5</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hàm SHA-1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hàm SHA-256</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Kiểm tra độ mạnh Password</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
-    </div>
+    </header>
 
-    <div class="container mt-5">
-        <h1 class="mb-4">Hashing Demo</h1>
-        <div class="form-group">
-            <label for="">Enter your password:</label>
-            <input type="password" name="" id="inputPwd1" placeholder="Your password 1" class="form-control">
-            <div id="hashedPasswordResult1" class="mt-3"></div>
+    <!-- Main Content Section -->
+    <section class="container mt-5">
+        <div id="hambam" class="noi-dung mt-5">
+            <h2 class="text-center text-success"> 1. Hàm băm (Hash Function)</h2>
+            <div class="row">
+                <div class="col-md-4 mt-3 text-center">
+                    <img src="./hashfuntionc.png" alt="" >
+                </div>
+                <div class="col-md-8 mt-3 pr-5 pl-5">
+                    <p>
+                        <span><a href="#hambam">Hàm băm</a></span>
+                        là các thuật toán không sử dụng khóa để mã hóa, nó
+                        có nhiệm vụ băm thông điệp được đưa vào theo một thuật toán
+                        <span><a href="#hambam">h</a></span>
+                        một chiều nào đó, rồi đưa ra một bản băm - văn bản đại diện -
+                        có kích thước cố định. Do đó người nhận không biết được nội
+                        dung hay độ dài ban đầu của thông điệp đã được băm bằng hàm
+                        băm.
+                    </p>
+                    <p>
+                        Giá trị của hàm băm là duy nhất, và không thể suy ngược lại
+                        được nội dung thông điệp từ giá trị băm này.
+                    </p>
+
+                    <p>
+                        Trong ngành mật mã học, một Hàm băm mật mã học (tiếng Anh: Cryptographic hash function) là một
+                        hàm băm với một số tính chất bảo mật nhất định để phù hợp việc sử dụng trong nhiều ứng dụng bảo
+                        mật thông tin đa dạng, chẳng hạn như 
+                        <span class="text-danger"> chứng thực</span>
+                        (authentication) và 
+                        <span class="text-danger"> kiểm tra tính nguyên vẹn</span>
+                        của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông điệp)
+                        có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là 
+                        <span class="text-danger"> tóm tắt thông điệp</span>
+                        (message digest) hoặc
+                        <span class="text-danger"> chữ ký số</span>
+                        (digital fingerprint).
+                    </p>
+
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="">Enter again password:</label>
-            <input type="password" name="" id="inputPwd2" placeholder="Your password 2" class="form-control">
-            <div id="hashedPasswordResult2" class="mt-3"></div>
+        <div id="md5" class="noi-dung mt-5">
+            <h2 class="text-center text-success"> 2. Hàm băm MD5</h2>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+
+                </div>
+                <div class="col-md-6 mt-3">
+                    
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="">System check</label>
-            <input type="text" name="" id="inputPwd3" placeholder="Your password 3" class="form-control" readonly>
-            <div id="hashedPasswordResult3" class="mt-3"></div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+        <div class="row">
+            <div class="col">
+                <p class="text-center">&copy; 2024 Mini project's LamHPIT13. All Rights Reserved.</p>
+                <p class="text-center">22680401 - Hồ Phúc Lâm - DHCNTT18A</p>
+            </div>
         </div>
+    </footer>
 
-    </div>
-
-
-    <div class="container mt-5 ">
-        <h1 class="mb-4">Password Hashing Demo</h1>
-        <div class="form-group">
-            <label for="passwordInput">Enter Password:</label>
-            <input type="password" class="form-control" id="passwordInput" onchange="hashPassword()">
-        </div>
-        <button type="button" class="btn btn-primary" onclick="hashPassword()">Hash Password</button>
-        <div id="hashedPasswordResult" class="mt-3"></div>
-    </div>
-
-
-
-    
 </body>
 
 </html>
 
 <!-- Link to Bootstrap JS and custom script -->
 <script>
-    document.getElementById('passwordInput').addEventListener('input', function(){
+    document.getElementById('passwordInput').addEventListener('input', function () {
         hashPassword();
     })
 
@@ -100,7 +224,7 @@
             // Display hashed password
             hashedPasswordResult.innerHTML = `
                 <div class="alert alert-success" role="alert">
-                    Hashed Password: ${hashedPassword}
+                    Hashed SHA-256 Password: <br> ${hashedPassword}
                 </div>
             `;
         } catch (error) {
