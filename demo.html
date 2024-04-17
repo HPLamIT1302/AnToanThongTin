@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Functions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/md5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Hash Functions</h1>
+        <div class="form-group">
+            <label for="inputText">Enter Text:</label>
+            <input type="text" class="form-control" id="inputText">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="calculateHash('md5')">Calculate MD5</button>
+        <button type="button" class="btn btn-primary" onclick="calculateHash('sha256')">Calculate SHA-256</button>
+        <br><br>
+        <div id="hashResult"></div>
+    </div>
+
+    <script>
+        function calculateHash(algorithm) {
+            const inputText = document.getElementById('inputText').value;
+            let hashResult = '';
+
+            if (algorithm === 'md5') {
+                hashResult = md5(inputText);
+            } else if (algorithm === 'sha256') {
+                hashResult = sha256(inputText);
+            }
+
+            document.getElementById('hashResult').innerHTML = `<p>Hash (${algorithm}): ${hashResult}</p>`;
+        }
+    </script>
+
+
+
+</body>
+
+</html>
