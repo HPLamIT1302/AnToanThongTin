@@ -47,12 +47,19 @@
             /* border: 1px solid red; */
         }
 
-        img {
+        #logo {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+            /* border: 1px solid blue; */
+
+        }
+
+        #img-hashF {
             object-fit: cover;
             width: 300px;
             height: 100%;
-            /* border: 1px solid blue; */
-            /* overflow: hidden; */
         }
 
         .noi-dung {
@@ -141,7 +148,7 @@
             <h2 class="text-center text-success"> 1. Hàm băm (Hash Function)</h2>
             <div class="row">
                 <div class="col-md-4 mt-3 text-center">
-                    <img src="./hashfuntionc.png" alt="" >
+                    <img src="./hashfuntionc.png" alt="hashfuntionc" id="img-hashF">
                 </div>
                 <div class="col-md-8 mt-3 pr-5 pl-5">
                     <p>
@@ -162,12 +169,13 @@
                     <p>
                         Trong ngành mật mã học, một Hàm băm mật mã học (tiếng Anh: Cryptographic hash function) là một
                         hàm băm với một số tính chất bảo mật nhất định để phù hợp việc sử dụng trong nhiều ứng dụng bảo
-                        mật thông tin đa dạng, chẳng hạn như 
+                        mật thông tin đa dạng, chẳng hạn như
                         <span class="text-danger"> chứng thực</span>
-                        (authentication) và 
+                        (authentication) và
                         <span class="text-danger"> kiểm tra tính nguyên vẹn</span>
-                        của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông điệp)
-                        có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là 
+                        của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông
+                        điệp)
+                        có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là
                         <span class="text-danger"> tóm tắt thông điệp</span>
                         (message digest) hoặc
                         <span class="text-danger"> chữ ký số</span>
@@ -185,7 +193,7 @@
 
                 </div>
                 <div class="col-md-6 mt-3">
-                    
+
                 </div>
             </div>
         </div>
@@ -196,8 +204,45 @@
     <!-- Footer -->
     <footer class="mt-5">
         <div class="row">
+            <div class="col-md-4 mt-3 text-center ">
+                <div class="row pl-3 ">
+                    <a href="https://iuh.edu.vn/" target="_blank"><img src="./Logo_IUH.png" alt="Logo_IUH"
+                            id="logo"></a>
+                </div>
+                <div class="row mt-3 pl-3">
+                    <h4 class="text-warning">Tài liệu tham khảo</h4>
+                    <a target="_blank"
+                        href="https://onedrive.live.com/?authkey=%21ADTqpPjpCSwxk2M&cid=970689E0F6BB33F2&id=970689E0F6BB33F2%2163438&parId=970689E0F6BB33F2%2163426&o=OneUp">Giáo
+                        trình: Chương 6. Hàm Băm và chữ ký số</a>
+                    <a target="_blank"
+                        href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">https://en.wikipedia.org/wiki/Cryptographic_hash_function</a>
+                    <a target="_blank"
+                        href="https://fptshop.com.vn/tin-tuc/danh-gia/hash-la-gi-175056">https://fptshop.com.vn/tin-tuc/danh-gia/hash-la-gi-175056</a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3 pl-3">
+                <h4 class="text-warning">Giới thiệu</h4>
+                <p>Đây là một dự án nhỏ sau khi hoàn thành học phần nhập môn an toàn thông tin, nhằm giúp sinh viên hiểu
+                    rõ hơn về hàm băm, cách bảo mật dữ liệu, che dấu mật khẩu, giảm thiểu sự tấn công của tin tặc.</p>
+                <p>Tôi xin gửi lời cảm ơn chân thành đến TS Ngô Hữu Dũng đã dành thời gian và kiến thức để hướng dẫn tôi
+                    trong việc thực hiện dự án mini này. Sự hướng dẫn và hỗ trợ của Thầy đã giúp tôi hiểu rõ hơn về dự
+                    án và phát triển kỹ năng của mình. Xin chân thành cảm ơn Thầy Ngô Hữu Dũng!</p>
+
+            </div>
+            <div class="col-md-4 mt-3 pl-3">
+                <h4 class="text-warning">Mini project</h4>
+                <p>Học phần: Nhập môn An toàn thông tin</p>
+                <p>Lớp học phần: DHKHMT17B - 420300100404</p>
+                <p>Giảng viên hướng dẫn: TS Ngô Hữu Dũng</p>
+                <p>Sinh viên thực hiện: Hồ Phúc Lâm - 22680401</p>
+                <p>Thông tin liên hệ SV: 0374826297</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt-5">
             <div class="col">
-                <p class="text-center">&copy; 2024 Mini project's LamHPIT13. All Rights Reserved.</p>
+                <p class="text-center">&copy; 2024 Mini project's LamHPIT13. All Rights Reserved. LamHPIT is Powered by
+                    HTML, CSS, JS, Bootstrap 4.</p>
                 <p class="text-center">22680401 - Hồ Phúc Lâm - DHCNTT18A</p>
             </div>
         </div>
