@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Hashing Demo</title>
+    <title>Hashing Function</title>
+    <!-- For IE -->
+    <link rel="shortcut icon" href="./Logo_IUH.png" type="image/x-icon">
+    <!-- For Chrome, Firefox, Safari, Opera -->
+    <link rel="icon" href="./Logo_IUH.png" type="image/x-icon">
+
+
     <!-- Link to Bootstrap CSS -->
     <link rel="stylesheet" href="./bootstrap.min.css">
     <script src="./jquery-3.7.1.min.js"></script>
@@ -122,7 +128,10 @@
     <header class="sticky-top">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">LamHPIT13</a>
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./Logo_IUH.png" alt="Logo" style="width:40px;">
+                  </a>
+                <a class="navbar-brand" href="./index.html">LamHPIT13</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -318,7 +327,34 @@
         </div>
 
         <!-- Kiểm tra độ mạnh mật khẩu -->
+        <div id="kiemtradomanhpwd" class="noi-dung mt-5">
+            <h2 class="text-center text-success"> 6. Kiểm tra độ mạnh mật khẩu</h2>
+            <div class="row">
+                <div class="col-md-6 mt-3 pl-5 pr-5">
 
+                    <ul>
+                        <li>SHA-3 là một thuật toán băm thuộc họ các thuật toán SHA, được thiết kế bởi Keccak Team.</li>
+                        <li>NIST đã tiêu chuẩn hóa SHA-3 và công bố nó là một tiêu chuẩn Federal Information Processing
+                            Standard (FIPS) vào năm 2015.</li>
+                        <li>SHA-3 được coi là một trong những thuật toán băm mạnh và an toàn nhất hiện nay.</li>
+                        <li>SHA-3 được sử dụng rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số,
+                            xác thực dữ liệu, và các ứng dụng an ninh mạng.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label for="hash3" class="text-danger font-weight-bold">SHA-3</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="" id="inputSHA3" oninput="calculateSHA3()" class="form-control"
+                            placeholder="Nhập vào đoạn chữ cần băm SHA-3 ...">
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit" onclick="calculateSHA3()">Hash
+                                SHA-3</button>
+                        </div>
+                    </div>
+                    <div id="outputSHA3"></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
