@@ -315,6 +315,7 @@
         <div id="domanhpwd" class="noi-dung mt-5">
             <h2 class="text-center text-success"> 6. Độ mạnh mật khẩu</h2>
             <div class="row">
+                <!-- giới thiệu mật khẩu -->
                 <div class="col-md-6 mt-3 pl-5 pr-5">
                     <ol>
                         <li><b>Độ dài của mật khẩu:</b> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác
@@ -333,6 +334,8 @@
                             hoặc một ký tự in hoa.</li>
                     </ol>
                 </div>
+
+                <!-- check mật khẩu -->
                 <div class="col-md-6 mt-3">
                     <h2 class="text-center text-success"> Mật khẩu của bạn đã đủ mạnh chưa?</h2>
                     <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
@@ -352,11 +355,16 @@
                     <div class="row">
                         <div class="col-md-6 mt-2">
                             <label for=""><b>Độ mạnh: </b></label>  
-                            <span id="passwordStrength"> <i class="fas fa-user-shield"> </i>  Rất yếu</span>
+                            <span id="passwordStrength" class="text-danger"> <i class="fas fa-user-shield"> </i> Rất yếu</span>
                         </div>
                         <div class="col-md-6 mt-2">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:10%"></div>
+                              </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
                             <label for=""><b>Độ dài mật khẩu: </b></label>
-                            <span id="passwordLength">0 ký tự</span>
+                            <span id="passwordLength" class="text-success">0 ký tự</span>
                         </div>
                     </div>
                     <div class="row">
@@ -527,13 +535,56 @@
     }
 
     // hàm check độ mạnh của mật khẩu
-    function checkPasswordStrength(password) {
-        let strength = 'Rất yếu';
-        let lengthText = `${password.length} ký tự`;
-        let charTypes = [];
+   function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const passwordLength = password.length;
+            const hasLowercase = /[a-z]/.test(password);
+            const hasUppercase = /[A-Z]/.test(password);
+            const hasDigit = /\d/.test(password);
+            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
-        
-    }
+            // Update password length display
+            document.getElementById('passwordLength').textContent = `${passwordLength} ký tự`;
+
+            // Update character types display and check icons
+            updateCharacterType('ck1', hasLowercase);
+            updateCharacterType('ck2', hasUppercase);
+            updateCharacterType('ck3', hasDigit);
+            updateCharacterType('ck4', hasSpecialChar);
+
+            // Update password strength and progress bar
+            let strength = 'Rất yếu';
+            let progressWidth = 10; // Default width for "Rất yếu"
+
+            if (passwordLength >= 8 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
+                strength = 'Mạnh';
+                progressWidth = 100;
+            } else if (passwordLength >= 6 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+                strength = 'Trung bình';
+                progressWidth = 50;
+            } else if (passwordLength > 0) {
+                strength = 'Yếu';
+                progressWidth = 20;
+            }
+
+            document.getElementById('passwordStrength').textContent = strength;
+            document.getElementById('strengthProgressBar').style.width = `${progressWidth}%`;
+        }
+
+        function updateCharacterType(id, hasType) {
+            const element = document.getElementById(id);
+            const checkIcon = document.getElementById(`check${id.slice(-1)}`);
+
+            if (hasType) {
+                element.classList.add('text-success');
+                element.classList.remove('text-danger');
+                checkIcon.classList.remove('d-none');
+            } else {
+                element.classList.remove('text-success');
+                element.classList.add('text-danger');
+                checkIcon.classList.add('d-none');
+            }
+        }
     function checkPasswordStrength(password) {
         const minLength = 6;
         const hasLowercase = /[a-z]/.test(password);
