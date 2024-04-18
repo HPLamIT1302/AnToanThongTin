@@ -384,7 +384,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p><button class="btn btn-primary btn-block" onclick="estimateCrackTime()">Kiểm tra thời gian dò lại mật khẩu</button>
+                            <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p>
                             <div id="crackTimeResult" class="mt-3"></div>
                         </div>
 
@@ -547,8 +547,7 @@
         }
     }
 
-   
-// Function to determine password strength and estimate crack time
+   // Function to determine password strength and estimate crack time
 function checkPasswordStrength() {
     const password = $('#password').val();
     const passwordLength = password.length;
@@ -556,9 +555,6 @@ function checkPasswordStrength() {
     const hasUppercase = /[A-Z]/.test(password);
     const hasDigit = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password);
-
-    // Check if the password is weak (in wordlist or dictionary)
-    const isWeak = isInDictionary(password) || isCommonPassword(password);
 
     // Update password length display
     $('#passwordLength').text(`${passwordLength} ký tự`);
@@ -569,41 +565,27 @@ function checkPasswordStrength() {
     updateCharacterType('#ck3', hasDigit, '#check3');
     updateCharacterType('#ck4', hasSpecialChar, '#check4');
 
-    // Determine password strength based on criteria
+    // Determine password strength based on length and character requirements
     let strength = 'Rất yếu'; // Default to "Rất yếu" if weak password
     let progressWidth = 10;
     let progressBarColor = 'bg-danger';
 
-    if (!isWeak) {
-        // Calculate crack time only if the password is not weak
-        const crackTimeSeconds = calculateCrackTime(password);
-        const formattedTime = formatTime(crackTimeSeconds);
-
-        // Display estimated crack time
-        $('#crackTimeResult').html(`
-            <div class="alert alert-info mt-3" role="alert">
-                Thời gian ước tính để phá giải mật khẩu: ${formattedTime}
-            </div>
-        `);
-
-        // Determine password strength based on length and character requirements
-        if (passwordLength >= 16 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
-            strength = 'Rất mạnh';
-            progressWidth = 100;
-            progressBarColor = 'bg-success';
-        } else if (passwordLength >= 12 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-            strength = 'Mạnh';
-            progressWidth = 90;
-            progressBarColor = 'bg-success';
-        } else if (passwordLength >= 8 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-            strength = 'Khá';
-            progressWidth = 70;
-            progressBarColor = 'bg-warning';
-        } else if (passwordLength >= 6 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-            strength = 'Trung bình';
-            progressWidth = 50;
-            progressBarColor = 'bg-warning';
-        }
+    if (passwordLength >= 16 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
+        strength = 'Rất mạnh';
+        progressWidth = 100;
+        progressBarColor = 'bg-success';
+    } else if (passwordLength >= 12 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+        strength = 'Mạnh';
+        progressWidth = 90;
+        progressBarColor = 'bg-success';
+    } else if (passwordLength >= 8 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+        strength = 'Khá';
+        progressWidth = 70;
+        progressBarColor = 'bg-warning';
+    } else if (passwordLength >= 6 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+        strength = 'Trung bình';
+        progressWidth = 50;
+        progressBarColor = 'bg-warning';
     }
 
     // Update password strength text and icon
@@ -637,43 +619,44 @@ function updateCharacterType(elementId, hasType, iconId) {
 $(document).ready(function () {
     $('#password').on('input', function () {
         checkPasswordStrength();
+        estimateCrackTime();
     });
 });
 
-
-
-
+// Function to estimate crack time and display result
 function estimateCrackTime() {
-    const password = document.getElementById('passwordInput').value;
+    const password = $('#password').val(); // Get password value using jQuery
     const isWeak = isInDictionary(password) || isCommonPassword(password);
 
     let crackTimeSeconds;
     if (isWeak) {
-        crackTimeSeconds = 0; // Nếu mật khẩu yếu, giả sử thời gian dò lại là 0 giây
+        crackTimeSeconds = 0; // Assume crack time is 0 seconds for weak passwords
     } else {
         crackTimeSeconds = calculateCrackTime(password);
     }
 
     const formattedTime = formatTime(crackTimeSeconds);
 
-    const crackTimeResultElement = document.getElementById('crackTimeResult');
-    crackTimeResultElement.innerHTML = `
+    const crackTimeResultElement = $('#crackTimeResult');
+    crackTimeResultElement.html(`
         <div class="alert alert-info mt-3" role="alert">
             Thời gian ước tính để dò lại mật khẩu: ${formattedTime}
         </div>
-    `;
+    `);
 }
 
+// Function to calculate crack time in seconds
 function calculateCrackTime(password) {
-    const characters = 94; // Số lượng ký tự có thể sử dụng (khoảng 94 ký tự ASCII có thể in được)
-    const keysPerSecond = 17042497.3; // Số lượng phím mỗi giây
+    const characters = 94; // Number of possible characters (approximately 94 printable ASCII characters)
+    const keysPerSecond = 17042497.3; // Number of keys per second
 
-    const possibilities = characters ** password.length; // Số lượng khả năng mật khẩu
-    const crackTimeSeconds = possibilities / keysPerSecond; // Thời gian ước tính để dò lại mật khẩu (giây)
+    const possibilities = characters ** password.length; // Number of password possibilities
+    const crackTimeSeconds = possibilities / keysPerSecond; // Estimated time to crack the password (seconds)
 
     return crackTimeSeconds;
 }
 
+// Function to format time in appropriate units (years, months, days, hours, minutes, seconds)
 function formatTime(seconds) {
     if (seconds < 1) {
         return "dưới 1 giây";
@@ -695,18 +678,23 @@ function formatTime(seconds) {
         }
     }
 
-    return "một vài giây"; // Trường hợp dưới 1 giây
+    return "một vài giây"; // Less than 1 second case
 }
 
+// Function to check if the password is in the dictionary
 function isInDictionary(password) {
     const lowercasePassword = password.toLowerCase();
+    // const dictionary = ['password', '123456', 'qwerty']; // Example dictionary array
     return dictionary.includes(lowercasePassword);
 }
 
+// Function to check if the password is a common password
 function isCommonPassword(password) {
     const lowercasePassword = password.toLowerCase();
+    // const wordlist = ['letmein', 'password123', 'admin']; // Example wordlist array
     return wordlist.includes(lowercasePassword);
 }
+
 
 
 
