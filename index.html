@@ -106,23 +106,6 @@
             word-break: break-all;
         }
     </style>
-
-    <script>
-        // Chuỗi cần băm
-        const inputString = 'Hello, world!';
-
-        // Băm với MD5
-        const md5Hash = CryptoJS.MD5(inputString).toString();
-        console.log('MD5 Hash:', md5Hash);
-
-        // Băm với SHA-1
-        const sha1Hash = CryptoJS.SHA1(inputString).toString();
-        console.log('SHA-1 Hash:', sha1Hash);
-
-        // Băm với SHA-256
-        const sha256Hash = CryptoJS.SHA256(inputString).toString();
-        console.log('SHA-256 Hash:', sha256Hash);
-    </script>
 </head>
 
 <body>
@@ -156,7 +139,7 @@
                             <a class="nav-link" href="#sha3">Hàm SHA-3</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#kiemtra">Kiểm tra độ mạnh Password</a>
+                            <a class="nav-link" href="#domanhpwd">Độ mạnh Mật khẩu</a>
                         </li>
                     </ul>
                 </div>
@@ -329,10 +312,10 @@
         </div>
 
         <!-- Kiểm tra độ mạnh mật khẩu -->
-        <div id="kiemtradomanhpwd" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 6. Kiểm tra độ mạnh mật khẩu</h2>
+        <div id="domanhpwd" class="noi-dung mt-5">
+            <h2 class="text-center text-success"> 6. Độ mạnh mật khẩu</h2>
             <div class="row">
-                <div class="col-md-12 mt-3 pl-5 pr-5">
+                <div class="col-md-6 mt-3 pl-5 pr-5">
                     <ol>
                         <li><b>Độ dài của mật khẩu:</b> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác
                             định độ mạnh của nó. Mật khẩu càng dài thì càng khó để bị dò ra bằng các phương pháp tấn
@@ -351,20 +334,46 @@
                     </ol>
                 </div>
                 <div class="col-md-6 mt-3">
+                    <h2 class="text-center text-success"> Mật khẩu của bạn đã đủ mạnh chưa?</h2>
                     <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
                     <div class="input-group mb-3">
                         <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Password...">
+                            placeholder="Nhập mật khẩu tại đây để kiểm tra"
+                            oninput="checkPasswordStrength()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
                                 <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
-                </div>
 
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-6 mt-2">
+                            <label for=""><b>Độ mạnh: </b></label>  
+                            <span id="passwordStrength"> <i class="fas fa-user-shield"> </i>  Rất yếu</span>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <label for=""><b>Độ dài mật khẩu: </b></label>
+                            <span id="passwordLength">0 ký tự</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
+                        <div class="col-md-6">
+                            <p id="ck1" >In thường (a, b, c) <i class="fas fa-user-check d-none"></i> </p>
+                            <p id="ck2">In hoa (A, B, C) <i class="fas fa-user-check d-none"></i></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p id="ck3">Chữ số (0, 1, 2,...) <i class="fas fa-user-check d-none"></i></i></p>
+                            <p id="ck4">Biểu tượng (?#@...) <i class="fas fa-user-check d-none"></i></i></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </section>
 
     <!-- Footer -->
@@ -403,7 +412,10 @@
             <div class="col-md-4 mt-3 pl-3">
                 <h4 class="text-warning font-weight-bold">Giới thiệu</h4>
                 <p>
-                    Đây là một dự án nhỏ, được thực hiện sau khi hoàn thành học phần Nhập môn An toàn thông tin. Dự án này nhằm giúp sinh viên hiểu rõ hơn về các khái niệm cơ bản trong an toàn thông tin, bao gồm hàm băm, cách bảo vệ dữ liệu, cách che dấu mật khẩu, và giảm thiểu nguy cơ bị tấn công từ các tin tặc.</p>
+                    Đây là một dự án nhỏ, được thực hiện sau khi hoàn thành học phần Nhập môn An toàn thông tin. Dự án
+                    này nhằm giúp sinh viên hiểu rõ hơn về các khái niệm cơ bản trong an toàn thông tin, bao gồm hàm
+                    băm, cách bảo vệ dữ liệu, cách che dấu mật khẩu, và giảm thiểu nguy cơ bị tấn công từ các tin tặc.
+                </p>
                 <p>Tôi xin gửi lời cảm ơn chân thành đến TS Ngô Hữu Dũng đã dành thời gian và kiến thức để hướng dẫn tôi
                     trong việc thực hiện dự án mini này. Sự hướng dẫn và hỗ trợ của Thầy đã giúp tôi hiểu rõ hơn về dự
                     án và phát triển kỹ năng của mình. Xin chân thành cảm ơn Thầy Ngô Hữu Dũng!</p>
@@ -416,6 +428,7 @@
                 <p>Giảng viên hướng dẫn: TS Ngô Hữu Dũng</p>
                 <p>Sinh viên thực hiện: Hồ Phúc Lâm - 22680401</p>
                 <p>Thông tin liên hệ SV: 0374826297</p>
+                <p>TP. HCM, Tháng 4 năm 2024</p>
             </div>
         </div>
         <hr>
@@ -513,50 +526,84 @@
         }
     }
 
-    
-    // kiểm tra độ mạnh yếu mật khẩu
-    function checkPasswordStrength() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    // hàm check độ mạnh của mật khẩu
+    function checkPasswordStrength(password) {
+        let strength = 'Rất yếu';
+        let lengthText = `${password.length} ký tự`;
+        let charTypes = [];
 
-        // Kiểm tra các yếu tố độ mạnh của mật khẩu
-        const minLength = 8;
-        const hasUppercase = /[A-Z]/.test(password);
+        
+    }
+    function checkPasswordStrength(password) {
+        const minLength = 6;
         const hasLowercase = /[a-z]/.test(password);
+        const hasUppercase = /[A-Z]/.test(password);
         const hasDigit = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
-        let strength = 'Yếu';
-        if (password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar) {
-            strength = 'Mạnh';
-        } else if (password.length >= minLength && (hasUppercase || hasLowercase || hasDigit || hasSpecialChar)) {
+        let strength = 'Rất yếu';
+        let lengthText = `${password.length} ký tự`;
+        let charTypes = [];
+
+        if (password.length >= minLength) {
             strength = 'Khá';
-        } else if (password.length >= minLength) {
-            strength = 'Trung bình';
         }
 
-        // Hiển thị độ mạnh của mật khẩu
+        if (password.length >= minLength && hasLowercase) {
+            strength = 'Trung bình';
+            charTypes.push('In thường');
+        }
+
+        if (password.length >= minLength && hasUppercase) {
+            strength = 'Trung bình';
+            charTypes.push('In hoa');
+        }
+
+        if (password.length >= minLength && hasDigit) {
+            strength = 'Trung bình';
+            charTypes.push('Chữ số');
+        }
+
+        if (password.length >= minLength && hasSpecialChar) {
+            strength = 'Trung bình';
+            charTypes.push('Biểu tượng (?#@...)');
+        }
+
         const passwordStrength = document.getElementById('passwordStrength');
-        passwordStrength.innerHTML = `
-        <div class="alert alert-info" role="alert">
-            Độ mạnh mật khẩu: ${strength}
-        </div>
-    `;
+        const passwordLength = document.getElementById('passwordLength');
+        const ck1 = document.getElementById('ck1');
+        const ck2 = document.getElementById('ck2');
+        const ck3 = document.getElementById('ck3');
+        const ck4 = document.getElementById('ck4');
+
+        passwordStrength.textContent = strength;
+        passwordLength.textContent = lengthText;
+        ck1.textContent = charTypes.includes('In thường') ? 'Có' : 'Chưa có';
+        ck2.textContent = charTypes.includes('In hoa') ? 'Có' : 'Chưa có';
+        ck3.textContent = charTypes.includes('Chữ số') ? 'Có' : 'Chưa có';
+        ck4.textContent = charTypes.includes('Biểu tượng (?#@...)') ? 'Có' : 'Chưa có';
     }
+
+    // Xử lý sự kiện khi người dùng nhập mật khẩu
+    const passwordInput = document.getElementById('password');
+    passwordInput.addEventListener('input', () => {
+        const password = passwordInput.value;
+        checkPasswordStrength(password);
+    });
+
 
 
 
     // Lấy tất cả các liên kết trong thanh điều hướng
     const navLinks = document.querySelectorAll('.navbar-nav a');
 
-    // Lặp qua từng liên kết
-    navLinks.forEach(link => {
-        // Lấy id của phần tử mà liên kết trỏ đến
-        const targetId = link.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
+    // Xử lý sự kiện cuộn trang
+    window.addEventListener('scroll', () => {
+        // Lặp qua từng liên kết trong thanh điều hướng
+        navLinks.forEach(link => {
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
 
-        // Xử lý sự kiện khi cuộn trang
-        window.addEventListener('scroll', () => {
             // Kiểm tra nếu phần tử đích hiện diện trong cửa sổ hiển thị
             if (isElementInViewport(targetElement)) {
                 // Xóa lớp active khỏi tất cả các liên kết
@@ -570,6 +617,19 @@
         });
     });
 
+    // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của cửa sổ không
+    function isElementInViewport(element) {
+        const rect = element.getBoundingClientRect();
+
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+
     // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của trình duyệt hay không
     function isElementInViewport(el) {
         const rect = el.getBoundingClientRect();
@@ -580,9 +640,4 @@
             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
     }
-</script>
-
-<script>
-    // xử lý phần 5  kiểm tra độ mạnh của mật khẩu
-
 </script>
