@@ -12,7 +12,8 @@
 
 
     <!-- Link to Bootstrap CSS -->
-    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="../css">
+    <link rel="stylesheet" href="./all.min.css">
     <script src="./jquery-3.7.1.min.js"></script>
     <script src="./bootstrap.min.js"></script>
 
@@ -130,7 +131,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="./index.html">
                     <img src="./Logo_IUH.png" alt="Logo" style="width:40px;">
-                  </a>
+                </a>
                 <a class="navbar-brand" href="./index.html">LamHPIT13</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -330,29 +331,37 @@
         <div id="kiemtradomanhpwd" class="noi-dung mt-5">
             <h2 class="text-center text-success"> 6. Kiểm tra độ mạnh mật khẩu</h2>
             <div class="row">
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-
-                    <ul>
-                        <li>SHA-3 là một thuật toán băm thuộc họ các thuật toán SHA, được thiết kế bởi Keccak Team.</li>
-                        <li>NIST đã tiêu chuẩn hóa SHA-3 và công bố nó là một tiêu chuẩn Federal Information Processing
-                            Standard (FIPS) vào năm 2015.</li>
-                        <li>SHA-3 được coi là một trong những thuật toán băm mạnh và an toàn nhất hiện nay.</li>
-                        <li>SHA-3 được sử dụng rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số,
-                            xác thực dữ liệu, và các ứng dụng an ninh mạng.</li>
-                    </ul>
+                <div class="col-md-12 mt-3 pl-5 pr-5">
+                    <ol>
+                        <li><b>Độ dài của mật khẩu:</b> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác
+                            định độ mạnh của nó. Mật khẩu càng dài thì càng khó để bị dò ra bằng các phương pháp tấn
+                            công dò mật khẩu.</li>
+                        <li><b>Đa dạng hóa ký tự:</b> Mật khẩu nên bao gồm các loại ký tự khác nhau như chữ cái (in hoa
+                            và thường), chữ số và ký tự đặc biệt. Việc sử dụng các loại ký tự đa dạng sẽ làm tăng độ khó
+                            cho việc đoán đúng mật khẩu.</li>
+                        <li><b>Không sử dụng các thông tin dễ đoán:</b> Tránh sử dụng các mật khẩu dễ đoán như tên người
+                            dùng, ngày sinh, dòng chữ liên tục trên bàn phím, hoặc các từ xuất hiện trong từ điển.</li>
+                        <li><b>Không sử dụng các mật khẩu trùng lặp: </b>Không sử dụng cùng một mật khẩu cho nhiều tài
+                            khoản. Nếu mật khẩu của một tài khoản bị phơi bày, hacker có thể sử dụng nó để truy cập vào
+                            các tài khoản khác của bạn.</li>
+                        <li><b>Các yêu cầu bảo mật của hệ thống:</b> Ngoài các yếu tố trên, các hệ thống có thể yêu cầu
+                            các tiêu chí bảo mật khác như sử dụng mật khẩu có ít nhất một chữ số, một ký tự đặc biệt,
+                            hoặc một ký tự in hoa.</li>
+                    </ol>
                 </div>
                 <div class="col-md-6 mt-3">
-                    <label for="hash3" class="text-danger font-weight-bold">SHA-3</label>
+                    <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
                     <div class="input-group mb-3">
-                        <input type="text" name="" id="inputSHA3" oninput="calculateSHA3()" class="form-control"
-                            placeholder="Nhập vào đoạn chữ cần băm SHA-3 ...">
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password...">
                         <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" onclick="calculateSHA3()">Hash
-                                SHA-3</button>
+                            <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
+                                <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
-                    <div id="outputSHA3"></div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -364,8 +373,10 @@
                 <div class="row pl-3 ">
                     <a href="https://iuh.edu.vn/" target="_blank"><img src="./Logo_IUH.png" alt="Logo_IUH"
                             id="logo"></a>
-                </div> 
-                <div class="row pl-3" > <h4 class="text-warning font-weight-bold ">Tài liệu tham khảo</h4></div>
+                </div>
+                <div class="row pl-3">
+                    <h4 class="text-warning font-weight-bold ">Tài liệu tham khảo</h4>
+                </div>
                 <div class="row  pl-5">
                     <ul>
                         <li>
@@ -383,15 +394,15 @@
                                 href="https://fptshop.com.vn/tin-tuc/danh-gia/hash-la-gi-175056">https://fptshop.com.vn/tin-tuc/danh-gia/hash-la-gi-175056</a>
                         </li>
                         <li> <a target="_blank"
-                                href="https://www.betterbuys.com/estimating-password-cracking-times/">https://www.betterbuys.com/estimating-password-cracking-times/</a>
+                                href="https://locker.io/vi/passwords/password-health-checker">https://locker.io/vi/passwords/password-health-checker</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4 mt-3 pl-3">
                 <h4 class="text-warning font-weight-bold">Giới thiệu</h4>
-                <p>Đây là một dự án nhỏ sau khi hoàn thành học phần nhập môn an toàn thông tin, nhằm giúp sinh viên hiểu
-                    rõ hơn về hàm băm, cách bảo mật dữ liệu, che dấu mật khẩu, giảm thiểu sự tấn công của tin tặc.</p>
+                <p>
+                    Đây là một dự án nhỏ, được thực hiện sau khi hoàn thành học phần Nhập môn An toàn thông tin. Dự án này nhằm giúp sinh viên hiểu rõ hơn về các khái niệm cơ bản trong an toàn thông tin, bao gồm hàm băm, cách bảo vệ dữ liệu, cách che dấu mật khẩu, và giảm thiểu nguy cơ bị tấn công từ các tin tặc.</p>
                 <p>Tôi xin gửi lời cảm ơn chân thành đến TS Ngô Hữu Dũng đã dành thời gian và kiến thức để hướng dẫn tôi
                     trong việc thực hiện dự án mini này. Sự hướng dẫn và hỗ trợ của Thầy đã giúp tôi hiểu rõ hơn về dự
                     án và phát triển kỹ năng của mình. Xin chân thành cảm ơn Thầy Ngô Hữu Dũng!</p>
@@ -484,6 +495,54 @@
             </div>
         `;
     }
+
+    // xem mật khẩu
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    }
+
+    
+    // kiểm tra độ mạnh yếu mật khẩu
+    function checkPasswordStrength() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Kiểm tra các yếu tố độ mạnh của mật khẩu
+        const minLength = 8;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasDigit = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+
+        let strength = 'Yếu';
+        if (password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar) {
+            strength = 'Mạnh';
+        } else if (password.length >= minLength && (hasUppercase || hasLowercase || hasDigit || hasSpecialChar)) {
+            strength = 'Khá';
+        } else if (password.length >= minLength) {
+            strength = 'Trung bình';
+        }
+
+        // Hiển thị độ mạnh của mật khẩu
+        const passwordStrength = document.getElementById('passwordStrength');
+        passwordStrength.innerHTML = `
+        <div class="alert alert-info" role="alert">
+            Độ mạnh mật khẩu: ${strength}
+        </div>
+    `;
+    }
+
 
 
     // Lấy tất cả các liên kết trong thanh điều hướng
