@@ -565,8 +565,18 @@ function checkPasswordStrength() {
     updateCharacterType('#ck3', hasDigit, '#check3');
     updateCharacterType('#ck4', hasSpecialChar, '#check4');
 
+   // Check if the password is weak (in dictionary or common passwords)
+   const isWeak = isInDictionary(password) || isCommonPassword(password);
+
+if (isWeak) {
+    // Password is weak (in dictionary or common passwords)
+    $('#passwordStrength').html(`<i class="fas fa-user-shield"></i> Rất yếu`);
+    $('#passwordStrength').removeClass('text-warning text-success').addClass('text-danger');
+
+    $('#strengthProgressBar').css('width', '10%').removeClass('bg-warning bg-success').addClass('bg-danger');
+} else {
     // Determine password strength based on length and character requirements
-    let strength = 'Rất yếu'; // Default to "Rất yếu" if weak password
+    let strength = 'Rất yếu';
     let progressWidth = 10;
     let progressBarColor = 'bg-danger';
 
@@ -589,16 +599,12 @@ function checkPasswordStrength() {
     }
 
     // Update password strength text and icon
-    const passwordStrengthElement = $('#passwordStrength');
-    passwordStrengthElement.html(`<i class="fas fa-user-shield"></i> ${strength}`);
-
-    // Apply the color of progressBarColor to passwordStrengthElement
-    passwordStrengthElement.removeClass('text-danger text-warning text-success').addClass(progressBarColor.replace('bg-', 'text-'));
+    $('#passwordStrength').html(`<i class="fas fa-user-shield"></i> ${strength}`);
+    $('#passwordStrength').removeClass('text-danger text-warning text-success').addClass(progressBarColor.replace('bg-', 'text-'));
 
     // Update progress bar width and color
-    const progressBar = $('#strengthProgressBar');
-    progressBar.css('width', `${progressWidth}%`);
-    progressBar.removeClass('bg-danger bg-warning bg-success').addClass(`progress-bar ${progressBarColor} progress-bar-striped progress-bar-animated`);
+    $('#strengthProgressBar').css('width', `${progressWidth}%`).removeClass('bg-danger bg-warning bg-success').addClass(`progress-bar ${progressBarColor} progress-bar-striped progress-bar-animated`);
+}
 }
 
 // Function to update character type display
@@ -639,8 +645,10 @@ function estimateCrackTime() {
 
     const crackTimeResultElement = $('#crackTimeResult');
     crackTimeResultElement.html(`
-        <div class="alert alert-info mt-3" role="alert">
-            Thời gian ước tính để dò lại mật khẩu: ${formattedTime}
+        <div class="alert alert-info mt-3 text-wrap" role="alert">
+            Thời gian ước tính phá giải mật khẩu (brute-force attack): 
+            <br>
+            ${formattedTime} 
         </div>
     `);
 }
