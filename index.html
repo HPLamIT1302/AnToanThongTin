@@ -21,6 +21,8 @@
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/crypto-js.min.js"></script>
     <script src="./js/script.js"></script>
+    <script src="./js/wordlist.js"></script>
+    <script src="./js/dictonary.js"></script>
 
     <style>
         * {
@@ -337,12 +339,11 @@
 
                 <!-- check mật khẩu -->
                 <div class="col-md-6 mt-3">
-                    <h2 class="text-center text-success"> Mật khẩu của bạn đã đủ mạnh chưa?</h2>
+                    <h2 class="text-center text-success">Mật khẩu của bạn đã đủ mạnh chưa?</h2>
                     <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
                     <div class="input-group mb-3">
                         <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Nhập mật khẩu tại đây để kiểm tra"
-                            oninput="checkPasswordStrength()">
+                            placeholder="Nhập mật khẩu để kiểm tra" oninput="checkPasswordStrength()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
                                 <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
@@ -354,13 +355,16 @@
 
                     <div class="row">
                         <div class="col-md-6 mt-2">
-                            <label for=""><b>Độ mạnh: </b></label>  
-                            <span id="passwordStrength" class="text-danger"> <i class="fas fa-user-shield"> </i> Rất yếu</span>
+                            <label for=""><b>Độ mạnh: </b></label>
+                            <span id="passwordStrength" class="text-danger"><i class="fas fa-user-shield"></i> Rất
+                                yếu</span>
                         </div>
                         <div class="col-md-6 mt-2">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:10%"></div>
-                              </div>
+                                <div id="strengthProgressBar"
+                                    class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                    style="width:10%"></div>
+                            </div>
                         </div>
                         <div class="col-md-12 mt-2">
                             <label for=""><b>Độ dài mật khẩu: </b></label>
@@ -370,15 +374,17 @@
                     <div class="row">
                         <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
                         <div class="col-md-6">
-                            <p id="ck1" >In thường (a, b, c) <i class="fas fa-user-check d-none"></i> </p>
-                            <p id="ck2">In hoa (A, B, C) <i class="fas fa-user-check d-none"></i></p>
+                            <p id="ck1">In thường (a, b, c) <i id="check1" class="fas fa-user-check d-none"></i></p>
+                            <p id="ck2">In hoa (A, B, C) <i id="check2" class="fas fa-user-check d-none"></i></p>
                         </div>
                         <div class="col-md-6">
-                            <p id="ck3">Chữ số (0, 1, 2,...) <i class="fas fa-user-check d-none"></i></i></p>
-                            <p id="ck4">Biểu tượng (?#@...) <i class="fas fa-user-check d-none"></i></i></p>
+                            <p id="ck3">Chữ số (0, 1, 2,...) <i id="check3" class="fas fa-user-check d-none"></i></p>
+                            <p id="ck4">Biểu tượng (?#@...) <i id="check4" class="fas fa-user-check d-none"></i></p>
                         </div>
                     </div>
                 </div>
+
+                <!-- end check mật khẩu -->
             </div>
         </div>
 
@@ -534,113 +540,106 @@
         }
     }
 
-    // hàm check độ mạnh của mật khẩu
-   function checkPasswordStrength() {
-            const password = document.getElementById('password').value;
-            const passwordLength = password.length;
-            const hasLowercase = /[a-z]/.test(password);
-            const hasUppercase = /[A-Z]/.test(password);
-            const hasDigit = /\d/.test(password);
-            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+    // Function to check if the password is weak based on wordlist
+    function isWeakPassword(password) {
+        const lowercasePassword = password.toLowerCase();
+        return wordlist.includes(lowercasePassword);
+    }
 
-            // Update password length display
-            document.getElementById('passwordLength').textContent = `${passwordLength} ký tự`;
-
-            // Update character types display and check icons
-            updateCharacterType('ck1', hasLowercase);
-            updateCharacterType('ck2', hasUppercase);
-            updateCharacterType('ck3', hasDigit);
-            updateCharacterType('ck4', hasSpecialChar);
-
-            // Update password strength and progress bar
-            let strength = 'Rất yếu';
-            let progressWidth = 10; // Default width for "Rất yếu"
-
-            if (passwordLength >= 8 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
-                strength = 'Mạnh';
-                progressWidth = 100;
-            } else if (passwordLength >= 6 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-                strength = 'Trung bình';
-                progressWidth = 50;
-            } else if (passwordLength > 0) {
-                strength = 'Yếu';
-                progressWidth = 20;
-            }
-
-            document.getElementById('passwordStrength').textContent = strength;
-            document.getElementById('strengthProgressBar').style.width = `${progressWidth}%`;
-        }
-
-        function updateCharacterType(id, hasType) {
-            const element = document.getElementById(id);
-            const checkIcon = document.getElementById(`check${id.slice(-1)}`);
-
-            if (hasType) {
-                element.classList.add('text-success');
-                element.classList.remove('text-danger');
-                checkIcon.classList.remove('d-none');
-            } else {
-                element.classList.remove('text-success');
-                element.classList.add('text-danger');
-                checkIcon.classList.add('d-none');
-            }
-        }
-    function checkPasswordStrength(password) {
-        const minLength = 6;
+    // Function to determine password strength
+    function checkPasswordStrength() {
+        const password = $('#password').val();
+        const passwordLength = password.length;
         const hasLowercase = /[a-z]/.test(password);
         const hasUppercase = /[A-Z]/.test(password);
         const hasDigit = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password);
 
-        let strength = 'Rất yếu';
-        let lengthText = `${password.length} ký tự`;
-        let charTypes = [];
+        // Check if the password is weak (in wordlist)
+        const isWeak = isWeakPassword(password);
 
-        if (password.length >= minLength) {
+        // Update password length display
+        $('#passwordLength').text(`${passwordLength} ký tự`);
+
+        // Update character types display and check icons
+        updateCharacterType('#ck1', hasLowercase, '#check1');
+        updateCharacterType('#ck2', hasUppercase, '#check2');
+        updateCharacterType('#ck3', hasDigit, '#check3');
+        updateCharacterType('#ck4', hasSpecialChar, '#check4');
+
+        // Determine password strength based on criteria
+        let strength = 'Rất yếu'; // Default to "Rất yếu" if weak password
+        let progressWidth = 10;
+        let progressBarColor = 'bg-danger';
+
+        if (isWeak) {
+            // Password is weak if it's in the common password list
+            strength = 'Rất yếu';
+            progressWidth = 10;
+            progressBarColor = 'bg-danger';
+        } else if (passwordLength >= 16 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
+            // Very strong password with all required elements and longer length
+            strength = 'Rất mạnh';
+            progressWidth = 100;
+            progressBarColor = 'bg-success';
+        } else if (passwordLength >= 12 && passwordLength < 16 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+            // Strong password with mixed elements and moderate length
+            strength = 'Mạnh';
+            progressWidth = 90;
+            progressBarColor = 'bg-success';
+        } else if (passwordLength >= 8 && passwordLength < 12 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+            // Moderate strength password with some elements and shorter length
             strength = 'Khá';
-        }
-
-        if (password.length >= minLength && hasLowercase) {
+            progressWidth = 70;
+            progressBarColor = 'bg-success';
+        } else if (passwordLength >= 6 && passwordLength < 8 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
+            // Medium strength password with some elements and minimal length
             strength = 'Trung bình';
-            charTypes.push('In thường');
+            progressWidth = 50;
+            progressBarColor = 'bg-warning';
+        } else if (passwordLength > 0) {
+            // Weak password with minimal elements and very short length
+            strength = 'Yếu';
+            progressWidth = 30;
+            progressBarColor = 'bg-danger';
         }
 
-        if (password.length >= minLength && hasUppercase) {
-            strength = 'Trung bình';
-            charTypes.push('In hoa');
-        }
 
-        if (password.length >= minLength && hasDigit) {
-            strength = 'Trung bình';
-            charTypes.push('Chữ số');
-        }
+        // Update password strength text and icon
+        const passwordStrengthElement = $('#passwordStrength');
+        passwordStrengthElement.html(`<i class="fas fa-user-shield"></i> ${strength}`);
 
-        if (password.length >= minLength && hasSpecialChar) {
-            strength = 'Trung bình';
-            charTypes.push('Biểu tượng (?#@...)');
-        }
+        // Apply the color of progressBarColor to passwordStrengthElement
+        passwordStrengthElement.removeClass('text-danger text-warning text-success').addClass(progressBarColor.replace('bg-', 'text-'));
 
-        const passwordStrength = document.getElementById('passwordStrength');
-        const passwordLength = document.getElementById('passwordLength');
-        const ck1 = document.getElementById('ck1');
-        const ck2 = document.getElementById('ck2');
-        const ck3 = document.getElementById('ck3');
-        const ck4 = document.getElementById('ck4');
-
-        passwordStrength.textContent = strength;
-        passwordLength.textContent = lengthText;
-        ck1.textContent = charTypes.includes('In thường') ? 'Có' : 'Chưa có';
-        ck2.textContent = charTypes.includes('In hoa') ? 'Có' : 'Chưa có';
-        ck3.textContent = charTypes.includes('Chữ số') ? 'Có' : 'Chưa có';
-        ck4.textContent = charTypes.includes('Biểu tượng (?#@...)') ? 'Có' : 'Chưa có';
+        // Update progress bar width and color
+        const progressBar = $('#strengthProgressBar');
+        progressBar.css('width', `${progressWidth}%`);
+        progressBar.removeClass('bg-danger bg-warning bg-success').addClass(`progress-bar ${progressBarColor} progress-bar-striped progress-bar-animated`);
     }
 
-    // Xử lý sự kiện khi người dùng nhập mật khẩu
-    const passwordInput = document.getElementById('password');
-    passwordInput.addEventListener('input', () => {
-        const password = passwordInput.value;
-        checkPasswordStrength(password);
+    // Function to update character type display
+    function updateCharacterType(elementId, hasType, iconId) {
+        const element = $(elementId);
+        const checkIcon = $(iconId);
+
+        if (hasType) {
+            element.addClass('text-success').removeClass('text-danger');
+            checkIcon.removeClass('d-none');
+        } else {
+            element.removeClass('text-success').addClass('text-danger');
+            checkIcon.addClass('d-none');
+        }
+    }
+
+    // Attach event listener to password input field
+    $(document).ready(function () {
+        $('#password').on('input', function () {
+            checkPasswordStrength();
+        });
     });
+
+
 
 
 
@@ -675,20 +674,26 @@
         return (
             rect.top >= 0 &&
             rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-
-
-    // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của trình duyệt hay không
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth ||
+                document.documentElement.clientWidth));
+    } // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của trình duyệt hay  không
     function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
+        const rect = el.getBoundingClientRect(); return (rect.top >= 0 &&
             rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth ||
+                document.documentElement.clientWidth));
     }
+
+
+    // Dictionary of common passwords to check against
+    const commonPasswords = [
+        'password',
+        '123456',
+        'qwerty',
+        'abc123',
+        'letmein',
+        'welcome',
+        'admin',
+        // Add more common passwords here
+    ];
 </script>
