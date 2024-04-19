@@ -20,94 +20,10 @@
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/crypto-js.min.js"></script>
-    <script src="./js/script.js"></script>
     <script src="./js/wordlist.js"></script>
     <script src="./js/dictonary.js"></script>
+    <script src="./js/script.js"></script>
 
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            text-decoration: none;
-            /* list-style-type: none; */
-            font-size: 16px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: justify;
-            line-height: 1.5;
-        }
-
-        body {
-            box-sizing: border-box;
-            background-color: aliceblue;
-        }
-
-        header {
-            /* border: 1px solid red; */
-        }
-
-        section {
-            /* border: 1px solid blue; */
-        }
-
-        footer {
-            background-color: #aaa;
-            padding: 20px;
-            /* position: fixed; */
-            width: 100%;
-            height: 100%;
-            /* border: 1px solid red; */
-        }
-
-        #logo {
-            width: 100%;
-            height: auto;
-            max-height: 150px;
-            object-fit: contain;
-            /* border: 1px solid blue; */
-
-        }
-
-        #img-hashF {
-            object-fit: cover;
-            width: 300px;
-            height: 100%;
-        }
-
-        .noi-dung {
-            border: 1px solid #aaa;
-            border-radius: 20px;
-            padding: 10px;
-            background-color: white;
-            transition: 0.3s ease;
-            /* box-shadow: 2px 2px 2px #aaa; */
-        }
-
-        .noi-dung:hover {
-            transform: scale(1.05);
-        }
-
-
-
-        #navbarNav li {
-            transition: transform 0.3s ease;
-        }
-
-        #navbarNav li:hover {
-            transform: translateY(-5px);
-        }
-
-        /* CSS cho các mục menu */
-        .nav-item {
-            margin-right: 10px;
-            /* Khoảng cách giữa các mục menu */
-        }
-
-        .text-wrap {
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
-    </style>
 </head>
 
 <body>
@@ -119,17 +35,21 @@
                     <img src="./images/Logo_IUH.png" alt="Logo" style="width:40px;">
                 </a>
                 <a class="navbar-brand" href="./index.html">LamHPIT13</a>
+
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav  ml-auto">
                         <li class="nav-item">
                             <a class="nav-link active" href="#hambam">Giới thiệu Hàm băm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#md5">Hàm Băm MD5</a>
+                            <a class="nav-link" href="#md5">Hàm băm MD5</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#sha1">Hàm SHA-1</a>
@@ -141,7 +61,10 @@
                             <a class="nav-link" href="#sha3">Hàm SHA-3</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#domanhpwd">Độ mạnh Mật khẩu</a>
+                            <a class="nav-link" href="#domanhpwd">Độ mạnh mật khẩu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#kiemtradomanhpwd" class="nav-link">Kiểm tra mật khẩu</a>
                         </li>
                     </ul>
                 </div>
@@ -336,65 +259,103 @@
                             hoặc một ký tự in hoa.</li>
                     </ol>
                 </div>
+                <div class="col-md-6 mt-3 pl-5 pr-5">
+                    <h5 class="text-danger text-center font-weight-bold">Có 3 dạng tấn công Password phổ biến:</h5>
+                    <ul>
+                        <label for="" class="text-warning font-weight-bold">Brute Force Attack (tấn công dò mật
+                            khẩu)</label>
+                        <li>Kẻ tấn công sử dụng một công cụ mạnh mẽ, có khả năng thử nhiều username và password cùng lúc
+                            (từ dễ đến khó) cho tới khi đăng nhập thành công</li>
+                        <li>VD: đặt mật khẩu đơn giản như 123456, password123, daylamatkhau,…rất dễ bị tấn công brute
+                            force.</li>
+                    </ul>
 
-                <!-- check mật khẩu -->
-                <div class="col-md-6 mt-3">
-                    <h2 class="text-center text-success">Mật khẩu của bạn đã đủ mạnh chưa?</h2>
-                    <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" id="password" class="form-control"
-                            placeholder="Nhập mật khẩu để kiểm tra" oninput="checkPasswordStrength()">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
-                                <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <ul>
+                        <label for="" class="text-warning font-weight-bold">Dictionary Attack (tấn công từ điển)</label>
+                        <li>Là một biến thể của Brute Force Attack</li>
+                        <li>Tuy nhiên kẻ tấn công nhắm vào các từ có nghĩa thay vì thử tất cả mọi khả năng</li>
+                        <li>Nhiều người dùng có xu hướng đặt mật khẩu là những từ đơn giản và có
+                            ngữ nghĩa. VD: motconvit, iloveyou,… Đây là lý do khiến Dictionary
+                            Attack có tỉ lệ thành công cao hơn</li>
+                    </ul>
 
-                    <hr>
+                    <ul>
+                        <label for="" class="text-warning font-weight-bold">Key Logger Attack (tấn công Key
+                            Logger)</label>
+                        <li>Kẻ tấn công lưu lại lịch sử các phím mà nạn nhân gõ, bao gồm cả ID,
+                            password hay nhiều nội dung khác</li>
+                        <li>Kẻ tấn công cần phải sử dụng một phần mềm độc hại (malware) đính
+                            kèm vào máy tính (hoặc điện thoại) nạn nhân, phần mềm đó sẽ ghi lại tất
+                            cả những ký tự mà nạn nhân nhập vào máy tính và gửi về cho kẻ tấn
+                            công. Phần mềm này được gọi là Key Logger</li>
+                        <li>Nguy hiểm hơn 2 cách tấn công trên, do việc đặt mật khẩu phức tạp
+                            không giúp ích gì trong trường hợp này</li>
+                    </ul>
 
-                    <div class="row">
-                        <div class="col-md-6 mt-2">
-                            <label for=""><b>Độ mạnh: </b></label>
-                            <span id="passwordStrength" class="text-secondary"><i class="fas fa-user-shield"></i>
-                                NaN</span>
-                        </div>
-                        <div class="col-md-6 mt-2">
-                            <div class="progress">
-                                <div id="strengthProgressBar"
-                                    class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                    style="width:0%"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 mt-2">
-                            <label for=""><b>Độ dài mật khẩu: </b></label>
-                            <span id="passwordLength" class="text-success">0 ký tự</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
-                        <div class="col-md-6">
-                            <p id="ck1">In thường (a, b, c) <i id="check1" class="fas fa-user-check d-none"></i></p>
-                            <p id="ck2">In hoa (A, B, C) <i id="check2" class="fas fa-user-check d-none"></i></p>
-                        </div>
-                        <div class="col-md-6">
-                            <p id="ck4">Biểu tượng (?#@...) <i id="check4" class="fas fa-user-check d-none"></i></p>
-                            <p id="ck3">Chữ số (0, 1, 2,...) <i id="check3" class="fas fa-user-check d-none"></i></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p>
-                            <div id="crackTimeResult" class="mt-3"></div>
-                        </div>
-
-                    </div>
                 </div>
 
-                <!-- end check mật khẩu -->
+
             </div>
         </div>
 
+        <div id="kiemtradomanhpwd" class="noi-dung mt-5">
+            <!-- check mật khẩu -->
+            <div class="col-md-12 mt-3">
+                <h2 class="text-center text-success">7. Mật khẩu của bạn đã đủ mạnh chưa?</h2>
+                <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" id="password" class="form-control"
+                        placeholder="Nhập mật khẩu để kiểm tra" oninput="checkPasswordStrength()">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
+                            <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <label for=""><b>Độ mạnh: </b></label>
+                        <span id="passwordStrength" class="text-secondary"><i class="fas fa-user-shield"></i>
+                            NaN</span>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div class="progress">
+                            <div id="strengthProgressBar"
+                                class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <label for=""><b>Độ dài mật khẩu: </b></label>
+                        <span id="passwordLength" class="text-success">0 ký tự</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
+                    <div class="col-md-6">
+                        <p id="ck1">In thường (a, b, c) <i id="check1" class="fas fa-user-check d-none"></i></p>
+                        <p id="ck2">In hoa (A, B, C) <i id="check2" class="fas fa-user-check d-none"></i></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p id="ck4">Biểu tượng (?#@...) <i id="check4" class="fas fa-user-check d-none"></i></p>
+                        <p id="ck3">Chữ số (0, 1, 2,...) <i id="check3" class="fas fa-user-check d-none"></i></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p>
+
+                        <div id="crackTimeResult" class="mt-3"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end check mật khẩu -->
+        </div>
     </section>
 
     <!-- Footer -->
@@ -465,294 +426,3 @@
 </body>
 
 </html>
-
-<script>
-    // xử lý hàm băm md5
-    function calculateMD5() {
-        const inputMD5 = document.getElementById('inputMD5').value;
-        const hashValue = CryptoJS.MD5(inputMD5).toString();
-
-        const outputMD5 = document.getElementById('outputMD5');
-        outputMD5.innerHTML = `
-            <div class="alert alert-info mt-3 text-wrap" role="alert">
-                MD5 Hash: 
-                <br>
-                ${hashValue}
-            </div>
-        `;
-    }
-
-    // xử lý hàm băm SHA-1
-    function calculateSHA1() {
-        const inputSHA1 = document.getElementById('inputSHA1').value;
-        const hashValue = CryptoJS.SHA1(inputSHA1).toString();
-
-        const outputSHA1 = document.getElementById('outputSHA1');
-        outputSHA1.innerHTML = `
-            <div class="alert alert-info mt-3 text-wrap" role="alert">
-                SHA-1 Hash: 
-                <br>
-                ${hashValue}
-            </div>
-        `;
-    }
-
-    // xủ lý hàm băm SHA-256
-    function calculateSHA256() {
-        const inputSHA256 = document.getElementById('inputSHA256').value;
-        const hashValue = CryptoJS.SHA256(inputSHA256).toString();
-
-        const outputSHA256 = document.getElementById('outputSHA256');
-        outputSHA256.innerHTML = `
-            <div class="alert alert-info mt-3 text-wrap" role="alert">
-                SHA-256 Hash: 
-                <br>
-                ${hashValue}
-            </div>
-        `;
-    }
-
-
-    function calculateSHA3() {
-        // Lấy giá trị đầu vào từ input
-        const inputSHA3 = document.getElementById('inputSHA3').value;
-
-        // Tính toán giá trị băm SHA-3 (SHA3-256) bằng thư viện crypto-js
-        const hashValueSHA3 = CryptoJS.SHA3(inputSHA3, { outputLength: 256 }).toString();
-
-        // Hiển thị giá trị băm SHA-3 ra phần tử có id là outputSHA3
-        const outputSHA3 = document.getElementById('outputSHA3');
-        outputSHA3.innerHTML = `
-            <div class="alert alert-info mt-3 text-wrap" role="alert">
-                SHA-3 (SHA3-256) Hash: 
-                <br>
-                ${hashValueSHA3}
-            </div>
-        `;
-    }
-
-    // xem mật khẩu
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeIcon.classList.remove('fa-eye');
-            eyeIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            eyeIcon.classList.remove('fa-eye-slash');
-            eyeIcon.classList.add('fa-eye');
-        }
-    }
-
-   // Function to determine password strength and estimate crack time
-function checkPasswordStrength() {
-    const password = $('#password').val();
-    const passwordLength = password.length;
-    const hasLowercase = /[a-z]/.test(password);
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasDigit = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password);
-
-    // Update password length display
-    $('#passwordLength').text(`${passwordLength} ký tự`);
-
-    // Update character types display and check icons
-    updateCharacterType('#ck1', hasLowercase, '#check1');
-    updateCharacterType('#ck2', hasUppercase, '#check2');
-    updateCharacterType('#ck3', hasDigit, '#check3');
-    updateCharacterType('#ck4', hasSpecialChar, '#check4');
-
-   // Check if the password is weak (in dictionary or common passwords)
-   const isWeak = isInDictionary(password) || isCommonPassword(password);
-
-if (isWeak) {
-    // Password is weak (in dictionary or common passwords)
-    $('#passwordStrength').html(`<i class="fas fa-user-shield"></i> Rất yếu`);
-    $('#passwordStrength').removeClass('text-warning text-success').addClass('text-danger');
-
-    $('#strengthProgressBar').css('width', '10%').removeClass('bg-warning bg-success').addClass('bg-danger');
-} else {
-    // Determine password strength based on length and character requirements
-    let strength = 'Rất yếu';
-    let progressWidth = 10;
-    let progressBarColor = 'bg-danger';
-
-    if (passwordLength >= 16 && hasLowercase && hasUppercase && hasDigit && hasSpecialChar) {
-        strength = 'Rất mạnh';
-        progressWidth = 100;
-        progressBarColor = 'bg-success';
-    } else if (passwordLength >= 12 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-        strength = 'Mạnh';
-        progressWidth = 90;
-        progressBarColor = 'bg-success';
-    } else if (passwordLength >= 8 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-        strength = 'Khá';
-        progressWidth = 70;
-        progressBarColor = 'bg-warning';
-    } else if (passwordLength >= 6 && (hasLowercase || hasUppercase || hasDigit || hasSpecialChar)) {
-        strength = 'Trung bình';
-        progressWidth = 50;
-        progressBarColor = 'bg-warning';
-    }
-
-    // Update password strength text and icon
-    $('#passwordStrength').html(`<i class="fas fa-user-shield"></i> ${strength}`);
-    $('#passwordStrength').removeClass('text-danger text-warning text-success').addClass(progressBarColor.replace('bg-', 'text-'));
-
-    // Update progress bar width and color
-    $('#strengthProgressBar').css('width', `${progressWidth}%`).removeClass('bg-danger bg-warning bg-success').addClass(`progress-bar ${progressBarColor} progress-bar-striped progress-bar-animated`);
-}
-}
-
-// Function to update character type display
-function updateCharacterType(elementId, hasType, iconId) {
-    const element = $(elementId);
-    const checkIcon = $(iconId);
-
-    if (hasType) {
-        element.addClass('text-success').removeClass('text-danger');
-        checkIcon.removeClass('d-none');
-    } else {
-        element.removeClass('text-success').addClass('text-danger');
-        checkIcon.addClass('d-none');
-    }
-}
-
-// Attach event listener to password input field
-$(document).ready(function () {
-    $('#password').on('input', function () {
-        checkPasswordStrength();
-        estimateCrackTime();
-    });
-});
-
-// Function to estimate crack time and display result
-function estimateCrackTime() {
-    const password = $('#password').val(); // Get password value using jQuery
-    const isWeak = isInDictionary(password) || isCommonPassword(password);
-
-    let crackTimeSeconds;
-    if (isWeak) {
-        crackTimeSeconds = 0; // Assume crack time is 0 seconds for weak passwords
-    } else {
-        crackTimeSeconds = calculateCrackTime(password);
-    }
-
-    const formattedTime = formatTime(crackTimeSeconds);
-
-    const crackTimeResultElement = $('#crackTimeResult');
-    crackTimeResultElement.html(`
-        <div class="alert alert-info mt-3 text-wrap" role="alert">
-            Thời gian ước tính phá giải mật khẩu (brute-force attack): 
-            <br>
-            ${formattedTime} 
-        </div>
-    `);
-}
-
-// Function to calculate crack time in seconds
-function calculateCrackTime(password) {
-    const characters = 94; // Number of possible characters (approximately 94 printable ASCII characters)
-    const keysPerSecond = 17042497.3; // Number of keys per second
-
-    const possibilities = characters ** password.length; // Number of password possibilities
-    const crackTimeSeconds = possibilities / keysPerSecond; // Estimated time to crack the password (seconds)
-
-    return crackTimeSeconds;
-}
-
-// Function to format time in appropriate units (years, months, days, hours, minutes, seconds)
-function formatTime(seconds) {
-    if (seconds < 1) {
-        return "dưới 1 giây";
-    }
-
-    const timeUnits = [
-        { unit: "năm", duration: 60 * 60 * 24 * 365 },
-        { unit: "tháng", duration: 60 * 60 * 24 * 30 },
-        { unit: "ngày", duration: 60 * 60 * 24 },
-        { unit: "giờ", duration: 60 * 60 },
-        { unit: "phút", duration: 60 },
-        { unit: "giây", duration: 1 }
-    ];
-
-    for (const unit of timeUnits) {
-        const value = Math.floor(seconds / unit.duration);
-        if (value >= 1) {
-            return `${value} ${unit.unit}${value === 1 ? "" : "s"}`;
-        }
-    }
-
-    return "một vài giây"; // Less than 1 second case
-}
-
-// Function to check if the password is in the dictionary
-function isInDictionary(password) {
-    const lowercasePassword = password.toLowerCase();
-    // const dictionary = ['password', '123456', 'qwerty']; // Example dictionary array
-    return dictionary.includes(lowercasePassword);
-}
-
-// Function to check if the password is a common password
-function isCommonPassword(password) {
-    const lowercasePassword = password.toLowerCase();
-    // const wordlist = ['letmein', 'password123', 'admin']; // Example wordlist array
-    return wordlist.includes(lowercasePassword);
-}
-
-
-
-
-
-
-
-
-
-
-
-    // Lấy tất cả các liên kết trong thanh điều hướng
-    const navLinks = document.querySelectorAll('.navbar-nav a');
-
-    // Xử lý sự kiện cuộn trang
-    window.addEventListener('scroll', () => {
-        // Lặp qua từng liên kết trong thanh điều hướng
-        navLinks.forEach(link => {
-            const targetId = link.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            // Kiểm tra nếu phần tử đích hiện diện trong cửa sổ hiển thị
-            if (isElementInViewport(targetElement)) {
-                // Xóa lớp active khỏi tất cả các liên kết
-                navLinks.forEach(navLink => {
-                    navLink.classList.remove('active');
-                });
-
-                // Thêm lớp active cho liên kết tương ứng
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của cửa sổ không
-    function isElementInViewport(element) {
-        const rect = element.getBoundingClientRect();
-
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth ||
-                document.documentElement.clientWidth));
-    } // Hàm kiểm tra xem phần tử có trong vùng nhìn thấy của trình duyệt hay  không
-    function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect(); return (rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth ||
-                document.documentElement.clientWidth));
-    }
-
-
-
-</script>
