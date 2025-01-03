@@ -14,14 +14,6 @@ body {
     background-color: aliceblue;
 }
 
-header {
-    /* border: 1px solid red; */
-}
-
-section {
-    /* border: 1px solid blue; */
-}
-
 footer {
     background-color: #aaa;
     padding: 20px;
@@ -46,6 +38,12 @@ footer {
     height: 100%;
 }
 
+.navbar-nav .nav-item .nav-link.active {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+
 .noi-dung {
     border: 1px solid #aaa;
     border-radius: 20px;
@@ -55,10 +53,6 @@ footer {
     /* box-shadow: 2px 2px 2px #aaa; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
 
-}
-.noi-dung:hover {
-    transform: scale(1.05); /* Phóng to khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tăng độ đổ bóng khi hover */
 }
 
 

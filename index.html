@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hashing Function</title>
+    <title>Hashing Function | Tìm hiểu hàm băm trong ATTT</title>
+
+    <meta name="description"
+        content="Tìm hiểu về hàm băm trong An toàn thông tin (ATTT), cách hoạt động và vai trò trong bảo mật dữ liệu.">
+
     <!-- For IE -->
     <link rel="shortcut icon" href="./images/Logo_IUH.png" type="image/x-icon">
     <!-- For Chrome, Firefox, Safari, Opera -->
@@ -16,13 +20,7 @@
     <link rel="stylesheet" href="./css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
 
-    <!-- link to javascript -->
-    <script src="./js/jquery-3.7.1.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/crypto-js.min.js"></script>
-    <script src="./js/wordlist.js"></script>
-    <script src="./js/dictonary.js"></script>
-    <script src="./js/script.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -31,345 +29,487 @@
     </script>
 </head>
 
-<body>
-    <!-- header -->
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="./index.html">
-                    <img src="./images/Logo_IUH.png" alt="Logo" style="width:40px;">
-                </a>
-                <a class="navbar-brand" href="./index.html">LamHPIT13</a>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
+        <a class="navbar-brand" href="./index.html">
+            <img src="./images/Logo_IUH.png" alt="Logo" style="width:40px;">
+        </a>
+        <a class="navbar-brand" href="./index.html">Tìm hiểu hàm băm</a>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#hambam">Giới thiệu Hàm băm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#md5">Hàm băm MD5</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sha1">Hàm SHA-1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sha256">Hàm SHA-256</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#sha3">Hàm SHA-3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#domanhpwd">Độ mạnh mật khẩu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tancongmatkhau">Dạng tấn công password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#kiemtradomanhpwd">Kiểm tra mật khẩu</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav  ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#hambam">Giới thiệu Hàm băm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#md5">Hàm băm MD5</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sha1">Hàm SHA-1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sha256">Hàm SHA-256</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sha3">Hàm SHA-3</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#domanhpwd">Độ mạnh mật khẩu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#kiemtradomanhpwd" class="nav-link">Kiểm tra mật khẩu</a>
-                        </li>
-                    </ul>
-                </div>
+    <h1 class="text-center mt-2 text-primary font-weight-bold ">Tìm hiểu hàm băm trong ATTT</h1>
+
+    <!-- Section Giới thiệu Hàm băm -->
+    <div id="hambam" class="container noi-dung mt-5">
+        <h2 class="text-center text-success"> Hàm băm (Hash Function)</h2>
+        <div class="row">
+            <div class="col-md-4 mt-3 text-center">
+                <img src="./images/hashfuntionc.png" alt="hashfuntionc" id="img-hashF">
             </div>
-        </nav>
-    </header>
+            <div class="col-md-8 mt-3 pr-5 pl-5">
+                <!-- <p>
+                    <span><a href="#hambam">Hàm băm</a></span>
+                    là các thuật toán không sử dụng khóa để mã hóa, nó
+                    có nhiệm vụ băm thông điệp được đưa vào theo một thuật toán
+                    <span><a href="#hambam">h</a></span>
+                    một chiều nào đó, rồi đưa ra một bản băm - văn bản đại diện -
+                    có kích thước cố định. Do đó người nhận không biết được nội
+                    dung hay độ dài ban đầu của thông điệp đã được băm bằng hàm
+                    băm.
+                </p>
+                <p>
+                    Giá trị của hàm băm là duy nhất, và không thể suy ngược lại
+                    được nội dung thông điệp từ giá trị băm này.
+                </p>
 
-    <!-- Main Content Section -->
-    <section class="container mt-5">
-        <!-- hhàm băm -->
-
-        <div id="hambam" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 1. Hàm băm (Hash Function)</h2>
-            <div class="row">
-                <div class="col-md-4 mt-3 text-center">
-                    <img src="./images/hashfuntionc.png" alt="hashfuntionc" id="img-hashF">
-                </div>
-                <div class="col-md-8 mt-3 pr-5 pl-5">
-                    <p>
-                        <span><a href="#hambam">Hàm băm</a></span>
-                        là các thuật toán không sử dụng khóa để mã hóa, nó
-                        có nhiệm vụ băm thông điệp được đưa vào theo một thuật toán
-                        <span><a href="#hambam">h</a></span>
-                        một chiều nào đó, rồi đưa ra một bản băm - văn bản đại diện -
-                        có kích thước cố định. Do đó người nhận không biết được nội
-                        dung hay độ dài ban đầu của thông điệp đã được băm bằng hàm
-                        băm.
-                    </p>
-                    <p>
-                        Giá trị của hàm băm là duy nhất, và không thể suy ngược lại
-                        được nội dung thông điệp từ giá trị băm này.
-                    </p>
-
-                    <p>
-                        Trong ngành mật mã học, một
-                        <a href="#hambam"> Hàm băm</a>
-                        mật mã học (tiếng Anh: Cryptographic hash function) là một
-                        hàm băm với một số tính chất bảo mật nhất định để phù hợp việc sử dụng trong nhiều ứng dụng bảo
-                        mật thông tin đa dạng, chẳng hạn như
-                        <span class="text-danger"> chứng thực</span>
-                        (authentication) và
-                        <span class="text-danger"> kiểm tra tính nguyên vẹn</span>
-                        của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông
-                        điệp)
-                        có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là
-                        <span class="text-danger"> tóm tắt thông điệp</span>
-                        (message digest) hoặc
-                        <span class="text-danger"> chữ ký số</span>
-                        (digital fingerprint).
-                    </p>
-
-                </div>
+                <p>
+                    Trong ngành mật mã học, một
+                    <a href="#hambam"> Hàm băm</a>
+                    mật mã học (tiếng Anh: Cryptographic hash function) là một
+                    hàm băm với một số tính chất bảo mật nhất định để phù hợp việc sử dụng trong nhiều ứng dụng bảo
+                    mật thông tin đa dạng, chẳng hạn như
+                    <span class="text-danger"> chứng thực</span>
+                    (authentication) và
+                    <span class="text-danger"> kiểm tra tính nguyên vẹn</span>
+                    của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông
+                    điệp)
+                    có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là
+                    <span class="text-danger"> tóm tắt thông điệp</span>
+                    (message digest) hoặc
+                    <span class="text-danger"> chữ ký số</span>
+                    (digital fingerprint).
+                </p> -->
+                <p>
+                    <span><a href="#hambam" class="text-info font-weight-bold">Hàm băm</a></span> là các thuật toán không sử dụng khóa để mã hóa, nó
+                    có nhiệm vụ băm thông điệp được đưa vào theo một thuật toán <span><a href="#hambam" class="text-info font-weight-bold">h</a></span>
+                    một chiều nào đó, rồi đưa ra một bản băm - văn bản đại diện -
+                    có kích thước cố định. Do đó người nhận không biết được nội
+                    dung hay độ dài ban đầu của thông điệp đã được băm bằng hàm
+                    băm.
+                </p>
+                <p>
+                    Giá trị của hàm băm là duy nhất, và không thể suy ngược lại
+                    được nội dung thông điệp từ giá trị băm này.
+                </p>
+                
+                <p>
+                    Trong ngành mật mã học, một <a href="#hambam" class="text-info font-weight-bold">Hàm băm</a> mật mã học (tiếng Anh: Cryptographic hash function) là một
+                    hàm băm với một số tính chất bảo mật nhất định để phù hợp việc sử dụng trong nhiều ứng dụng bảo
+                    mật thông tin đa dạng, chẳng hạn như
+                    <span class="text-danger font-weight-bold">chứng thực</span>
+                    (authentication) và
+                    <span class="text-danger font-weight-bold">kiểm tra tính nguyên vẹn</span>
+                    của thông điệp (message integrity). Một hàm băm nhận đầu vào là một xâu ký tự dài (hay thông
+                    điệp)
+                    có độ dài tùy ý và tạo ra kết quả là một xâu ký tự có độ dài cố định, đôi khi được gọi là
+                    <span class="text-danger font-weight-bold">tóm tắt thông điệp</span>
+                    (message digest) hoặc
+                    <span class="text-danger font-weight-bold">chữ ký số</span>
+                    (digital fingerprint).
+                </p>
+                
             </div>
         </div>
 
-        <!-- hàm MD5 -->
-        <div ></div>
-        <div id="md5" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 2. Hàm băm MD5 (Message Digest Algorithm 5)</h2>
-            <div class="row">
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-                    <ul>
-                        <li>MD5 là một thuật toán băm được phát triển bởi Ronald Rivest vào năm 1991.</li>
-                        <li>MD5 tạo ra một băm có độ dài 128 bit (16 byte), thường được biểu diễn dưới dạng chuỗi hexa
-                            32 ký tự.</li>
-                        <li>Thuật toán này nhanh chóng và đơn giản, nhưng đã bị thay thế trong các ứng dụng an ninh bởi
-                            những lỗ hổng bảo mật đã được phát hiện.</li>
-                        <li>MD5 không nên được sử dụng cho mục đích bảo mật nhạy cảm vì hiện nay đã có khả năng tìm ra
-                            hai đầu vào khác nhau cho cùng một giá trị băm.</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 mt-3">
-                    <label for="hashmd5" class="text-danger font-weight-bold">MD5</label>
-                    <div class="input-group mb-3">
-                        <input type="text" name="" id="inputMD5" oninput="calculateMD5()" class="form-control"
-                            placeholder="Nhập vào đoạn chữ cần băm MD5 ...">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" onclick="calculateMD5()">Hash MD5</button>
-                        </div>
-                    </div>
-                    <div id="outputMD5"></div>
-                </div>
+    </div>
+
+    <!-- Section Hàm băm MD5 -->
+    <div id="md5" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">Hàm băm MD5 (Message Digest Algorithm 5)</h2>
+        <div class="row">
+            <div class="col-md-6 mt-3 pl-5 pr-5">
+                <!-- <ul>
+                    <li>MD5 là một thuật toán băm được phát triển bởi Ronald Rivest vào năm 1991.</li>
+                    <li>MD5 tạo ra một băm có độ dài 128 bit (16 byte), thường được biểu diễn dưới dạng chuỗi hexa
+                        32 ký tự.</li>
+                    <li>Thuật toán này nhanh chóng và đơn giản, nhưng đã bị thay thế trong các ứng dụng an ninh bởi
+                        những lỗ hổng bảo mật đã được phát hiện.</li>
+                    <li>MD5 không nên được sử dụng cho mục đích bảo mật nhạy cảm vì hiện nay đã có khả năng tìm ra
+                        hai đầu vào khác nhau cho cùng một giá trị băm.</li>
+                </ul> -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-primary">MD5</span> là một thuật toán băm được phát triển bởi 
+                        <span class="font-weight-bold">Ronald Rivest</span> vào năm <span class="text-success">1991</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">MD5</span> tạo ra một băm có độ dài 
+                        <span class="text-info">128 bit (16 byte)</span>, thường được biểu diễn dưới dạng chuỗi hexa 
+                        <span class="text-info">32 ký tự</span>.
+                    </li>
+                    <li class="list-group-item">
+                        Thuật toán này <span class="text-warning">nhanh chóng và đơn giản</span>, nhưng đã bị thay thế trong các ứng dụng an ninh bởi những lỗ hổng bảo mật đã được phát hiện.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="text-danger">MD5 không nên được sử dụng</span> cho mục đích bảo mật nhạy cảm vì hiện nay đã có khả năng tìm ra hai đầu vào khác nhau cho cùng một giá trị băm.
+                    </li>
+                </ul>
+                
             </div>
-        </div>
-
-        <!-- hàm SHA-1 -->
-        <div ></div>
-        <div id="sha1" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 3. SHA-1 (Secure Hash Algorithm 1)</h2>
-            <div class="row">
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-                    <ul>
-                        <li>SHA-1 là một thuật toán băm được phát triển bởi NSA vào năm 1993 và được công bố năm 1995.
-                        </li>
-                        <li>SHA-1 tạo ra một băm có độ dài 160 bit (20 byte), thường được biểu diễn dưới dạng chuỗi hexa
-                            40 ký tự.</li>
-                        <li>Trong thời gian gần đây, SHA-1 cũng đã bị coi là không an toàn do các vấn đề liên quan đến
-                            va chạm (collision attacks) và nên được thay thế bởi các thuật toán băm mạnh hơn như
-                            SHA-256.</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 mt-3">
-                    <label for="hashsha1" class="text-danger font-weight-bold">SHA-1</label>
-                    <div class="input-group mb-3">
-                        <input type="text" name="" id="inputSHA1" oninput="calculateSHA1()" class="form-control"
-                            placeholder="Nhập vào đoạn chữ cần băm SHA-1 ...">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" onclick="calculateSHA1()">Hash SHA-1</button>
-                        </div>
-                    </div>
-                    <div id="outputSHA1"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- hàm SHA-256 -->
-        <div></div>
-        <div  id="sha256" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 4. SHA-256 (Secure Hash Algorithm 256-bit)</h2>
-            <div class="row">
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-                    <ul>
-                        <li>SHA-256 là một thuật toán băm trong họ các thuật toán SHA-2, được phát triển bởi NSA.</li>
-                        <li>SHA-256 tạo ra một băm có độ dài 256 bit (32 byte), thường được biểu diễn dưới dạng chuỗi
-                            hexa 64 ký tự.</li>
-                        <li>SHA-256 hiện được coi là một trong những thuật toán băm mạnh và an toàn nhất được sử dụng
-                            rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số, và xác thực dữ
-                            liệu.</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 mt-3">
-                    <label for="hashsha256" class="text-danger font-weight-bold">SHA-256</label>
-                    <div class="input-group mb-3">
-                        <input type="text" name="" id="inputSHA256" oninput="calculateSHA256()" class="form-control"
-                            placeholder="Nhập vào đoạn chữ cần băm SHA-256 ...">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" onclick="calculateSHA256()">Hash
-                                SHA-256</button>
-                        </div>
-                    </div>
-                    <div id="outputSHA256"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hàm SHA-3 -->
-        <div ></div>
-        <div id="sha3" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 5. SHA-3 (Secure Hash Algorithm 3)</h2>
-            <div class="row">
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-
-                    <ul>
-                        <li>SHA-3 là một thuật toán băm thuộc họ các thuật toán SHA, được thiết kế bởi Keccak Team.</li>
-                        <li>NIST đã tiêu chuẩn hóa SHA-3 và công bố nó là một tiêu chuẩn Federal Information Processing
-                            Standard (FIPS) vào năm 2015.</li>
-                        <li>SHA-3 được coi là một trong những thuật toán băm mạnh và an toàn nhất hiện nay.</li>
-                        <li>SHA-3 được sử dụng rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số,
-                            xác thực dữ liệu, và các ứng dụng an ninh mạng.</li>
-                    </ul>
-                </div>
-                <div class="col-md-6 mt-3">
-                    <label for="hash3" class="text-danger font-weight-bold">SHA-3</label>
-                    <div class="input-group mb-3">
-                        <input type="text" name="" id="inputSHA3" oninput="calculateSHA3()" class="form-control"
-                            placeholder="Nhập vào đoạn chữ cần băm SHA-3 ...">
-                        <div class="input-group-append">
-                            <button class="btn btn-success" type="submit" onclick="calculateSHA3()">Hash
-                                SHA-3</button>
-                        </div>
-                    </div>
-                    <div id="outputSHA3"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Kiểm tra độ mạnh mật khẩu -->
-        <div ></div>
-        <div id="domanhpwd" class="noi-dung mt-5">
-            <h2 class="text-center text-success"> 6. Độ mạnh mật khẩu</h2>
-            <div class="row">
-                <!-- giới thiệu mật khẩu -->
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-                    <ol>
-                        <li><b>Độ dài của mật khẩu:</b> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác
-                            định độ mạnh của nó. Mật khẩu càng dài thì càng khó để bị dò ra bằng các phương pháp tấn
-                            công dò mật khẩu.</li>
-                        <li><b>Đa dạng hóa ký tự:</b> Mật khẩu nên bao gồm các loại ký tự khác nhau như chữ cái (in hoa
-                            và thường), chữ số và ký tự đặc biệt. Việc sử dụng các loại ký tự đa dạng sẽ làm tăng độ khó
-                            cho việc đoán đúng mật khẩu.</li>
-                        <li><b>Không sử dụng các thông tin dễ đoán:</b> Tránh sử dụng các mật khẩu dễ đoán như tên người
-                            dùng, ngày sinh, dòng chữ liên tục trên bàn phím, hoặc các từ xuất hiện trong từ điển.</li>
-                        <li><b>Không sử dụng các mật khẩu trùng lặp: </b>Không sử dụng cùng một mật khẩu cho nhiều tài
-                            khoản. Nếu mật khẩu của một tài khoản bị phơi bày, hacker có thể sử dụng nó để truy cập vào
-                            các tài khoản khác của bạn.</li>
-                        <li><b>Các yêu cầu bảo mật của hệ thống:</b> Ngoài các yếu tố trên, các hệ thống có thể yêu cầu
-                            các tiêu chí bảo mật khác như sử dụng mật khẩu có ít nhất một chữ số, một ký tự đặc biệt,
-                            hoặc một ký tự in hoa.</li>
-                    </ol>
-                </div>
-                <div class="col-md-6 mt-3 pl-5 pr-5">
-                    <h5 class="text-danger text-center font-weight-bold">Có 3 dạng tấn công Password phổ biến:</h5>
-                    <ul>
-                        <label for="" class="text-warning font-weight-bold">Brute Force Attack (tấn công dò mật
-                            khẩu)</label>
-                        <li>Kẻ tấn công sử dụng một công cụ mạnh mẽ, có khả năng thử nhiều username và password cùng lúc
-                            (từ dễ đến khó) cho tới khi đăng nhập thành công</li>
-                        <li>VD: đặt mật khẩu đơn giản như 123456, password123, daylamatkhau,…rất dễ bị tấn công brute
-                            force.</li>
-                    </ul>
-
-                    <ul>
-                        <label for="" class="text-warning font-weight-bold">Dictionary Attack (tấn công từ điển)</label>
-                        <li>Là một biến thể của Brute Force Attack</li>
-                        <li>Tuy nhiên kẻ tấn công nhắm vào các từ có nghĩa thay vì thử tất cả mọi khả năng</li>
-                        <li>Nhiều người dùng có xu hướng đặt mật khẩu là những từ đơn giản và có
-                            ngữ nghĩa. VD: motconvit, iloveyou,… Đây là lý do khiến Dictionary
-                            Attack có tỉ lệ thành công cao hơn</li>
-                    </ul>
-
-                    <ul>
-                        <label for="" class="text-warning font-weight-bold">Key Logger Attack (tấn công Key
-                            Logger)</label>
-                        <li>Kẻ tấn công lưu lại lịch sử các phím mà nạn nhân gõ, bao gồm cả ID,
-                            password hay nhiều nội dung khác</li>
-                        <li>Kẻ tấn công cần phải sử dụng một phần mềm độc hại (malware) đính
-                            kèm vào máy tính (hoặc điện thoại) nạn nhân, phần mềm đó sẽ ghi lại tất
-                            cả những ký tự mà nạn nhân nhập vào máy tính và gửi về cho kẻ tấn
-                            công. Phần mềm này được gọi là Key Logger</li>
-                        <li>Nguy hiểm hơn 2 cách tấn công trên, do việc đặt mật khẩu phức tạp
-                            không giúp ích gì trong trường hợp này</li>
-                    </ul>
-
-                </div>
-
-
-            </div>
-        </div>
-
-        <div></div>
-        <div id="kiemtradomanhpwd" class="noi-dung mt-5">
-            <!-- check mật khẩu -->
-            <div class="col-md-12 mt-3">
-                <h2 class="text-center text-success">7. Mật khẩu của bạn đã đủ mạnh chưa?</h2>
-                <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
+            <div class="col-md-6 mt-3">
+                <label for="hashmd5" class="text-danger font-weight-bold">MD5</label>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" id="password" class="form-control"
-                        placeholder="Nhập mật khẩu để kiểm tra" oninput="checkPasswordStrength()">
+                    <input type="text" name="" id="inputMD5" oninput="calculateMD5()" class="form-control"
+                        placeholder="Nhập vào đoạn chữ cần băm MD5 ...">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
-                            <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
-                        </button>
+                        <button class="btn btn-success" type="submit" onclick="calculateMD5()">Hash MD5</button>
                     </div>
                 </div>
+                <div id="outputMD5"></div>
+            </div>
+        </div>
+    </div>
 
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-6 mt-2">
-                        <label for=""><b>Độ mạnh: </b></label>
-                        <span id="passwordStrength" class="text-secondary"><i class="fas fa-user-shield"></i>
-                            NaN</span>
-                    </div>
-                    <div class="col-md-6 mt-2">
-                        <div class="progress">
-                            <div id="strengthProgressBar"
-                                class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                style="width:0%"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label for=""><b>Độ dài mật khẩu: </b></label>
-                        <span id="passwordLength" class="text-success">0 ký tự</span>
+    <!-- Section Hàm SHA-1 -->
+    <div id="sha1" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">SHA-1 (Secure Hash Algorithm 1)</h2>
+        <div class="row">
+            <div class="col-md-6 mt-3 pl-5 pr-5">
+                <!-- <ul>
+                    <li>SHA-1 là một thuật toán băm được phát triển bởi NSA vào năm 1993 và được công bố năm 1995.
+                    </li>
+                    <li>SHA-1 tạo ra một băm có độ dài 160 bit (20 byte), thường được biểu diễn dưới dạng chuỗi hexa
+                        40 ký tự.</li>
+                    <li>Trong thời gian gần đây, SHA-1 cũng đã bị coi là không an toàn do các vấn đề liên quan đến
+                        va chạm (collision attacks) và nên được thay thế bởi các thuật toán băm mạnh hơn như
+                        SHA-256.</li>
+                </ul> -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-primary">SHA-1</span> là một thuật toán băm được phát triển bởi 
+                        <span class="font-weight-bold">NSA</span> vào năm <span class="text-success">1993</span> và được công bố năm 
+                        <span class="text-success">1995</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">SHA-1</span> tạo ra một băm có độ dài 
+                        <span class="text-info">160 bit (20 byte)</span>, thường được biểu diễn dưới dạng chuỗi hexa 
+                        <span class="text-info">40 ký tự</span>.
+                    </li>
+                    <li class="list-group-item">
+                        Trong thời gian gần đây, <span class="text-danger">SHA-1 cũng đã bị coi là không an toàn</span> do các vấn đề liên quan đến 
+                        <span class="font-italic text-warning">va chạm (collision attacks)</span> và nên được thay thế bởi các thuật toán băm mạnh hơn như 
+                        <span class="text-primary font-weight-bold">SHA-256</span>.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="hashsha1" class="text-danger font-weight-bold">SHA-1</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="" id="inputSHA1" oninput="calculateSHA1()" class="form-control"
+                        placeholder="Nhập vào đoạn chữ cần băm SHA-1 ...">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit" onclick="calculateSHA1()">Hash SHA-1</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
-                    <div class="col-md-6">
-                        <p id="ck1">In thường (a, b, c) <i id="check1" class="fas fa-user-check d-none"></i></p>
-                        <p id="ck2">In hoa (A, B, C) <i id="check2" class="fas fa-user-check d-none"></i></p>
-                    </div>
-                    <div class="col-md-6">
-                        <p id="ck4">Biểu tượng (?#@...) <i id="check4" class="fas fa-user-check d-none"></i></p>
-                        <p id="ck3">Chữ số (0, 1, 2,...) <i id="check3" class="fas fa-user-check d-none"></i></p>
+                <div id="outputSHA1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Hàm SHA-256 -->
+    <div id="sha256" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">SHA-256 (Secure Hash Algorithm 256-bit)</h2>
+        <div class="row">
+            <div class="col-md-6 mt-3 pl-5 pr-5">
+                <!-- <ul>
+                    <li>SHA-256 là một thuật toán băm trong họ các thuật toán SHA-2, được phát triển bởi NSA.</li>
+                    <li>SHA-256 tạo ra một băm có độ dài 256 bit (32 byte), thường được biểu diễn dưới dạng chuỗi
+                        hexa 64 ký tự.</li>
+                    <li>SHA-256 hiện được coi là một trong những thuật toán băm mạnh và an toàn nhất được sử dụng
+                        rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số, và xác thực dữ
+                        liệu.</li>
+                </ul> -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-primary">SHA-256</span> là một thuật toán băm trong họ các thuật toán 
+                        <span class="font-weight-bold">SHA-2</span>, được phát triển bởi <span class="font-italic">NSA</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">SHA-256</span> tạo ra một băm có độ dài 
+                        <span class="text-info">256 bit (32 byte)</span>, thường được biểu diễn dưới dạng chuỗi hexa 
+                        <span class="text-info">64 ký tự</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">SHA-256</span> hiện được coi là một trong những thuật toán băm mạnh và an toàn nhất được sử dụng 
+                        rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số, và xác thực dữ liệu.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="hashsha256" class="text-danger font-weight-bold">SHA-256</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="" id="inputSHA256" oninput="calculateSHA256()" class="form-control"
+                        placeholder="Nhập vào đoạn chữ cần băm SHA-256 ...">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit" onclick="calculateSHA256()">Hash
+                            SHA-256</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p>
+                <div id="outputSHA256"></div>
+            </div>
+        </div>
+    </div>
 
-                        <div id="crackTimeResult" class="mt-3"></div>
+    <!-- Section Hàm SHA-3 -->
+    <div id="sha3" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">SHA-3 (Secure Hash Algorithm 3)</h2>
+        <div class="row">
+            <div class="col-md-6 mt-3 pl-5 pr-5">
+                <!-- <ul>
+                    <li>SHA-3 là một thuật toán băm thuộc họ các thuật toán SHA, được thiết kế bởi Keccak Team.</li>
+                    <li>NIST đã tiêu chuẩn hóa SHA-3 và công bố nó là một tiêu chuẩn Federal Information Processing
+                        Standard (FIPS) vào năm 2015.</li>
+                    <li>SHA-3 được coi là một trong những thuật toán băm mạnh và an toàn nhất hiện nay.</li>
+                    <li>SHA-3 được sử dụng rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số,
+                        xác thực dữ liệu, và các ứng dụng an ninh mạng.</li>
+                </ul> -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-primary">SHA-3</span> là một thuật toán băm thuộc họ các thuật toán 
+                        <span class="font-weight-bold">SHA</span>, được thiết kế bởi <span class="font-italic">Keccak Team</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">NIST</span> đã tiêu chuẩn hóa <span class="font-weight-bold">SHA-3</span> và công bố nó là một tiêu chuẩn 
+                        <span class="text-info">Federal Information Processing Standard (FIPS)</span> vào năm 
+                        <span class="text-success">2015</span>.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-danger">SHA-3</span> được coi là một trong những thuật toán băm mạnh và an toàn nhất hiện nay.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold">SHA-3</span> được sử dụng rộng rãi trong các ứng dụng bảo mật, bao gồm mã hóa mật khẩu, chữ ký số, xác thực dữ liệu, và các ứng dụng an ninh mạng.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 mt-3">
+                <label for="hash3" class="text-danger font-weight-bold">SHA-3</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="" id="inputSHA3" oninput="calculateSHA3()" class="form-control"
+                        placeholder="Nhập vào đoạn chữ cần băm SHA-3 ...">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit" onclick="calculateSHA3()">Hash
+                            SHA-3</button>
                     </div>
+                </div>
+                <div id="outputSHA3"></div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Section Độ mạnh mật khẩu -->
+    <div id="domanhpwd" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">Độ mạnh mật khẩu</h2>
+        <div class="row">
+            <!-- giới thiệu mật khẩu -->
+            <div class="col-md-12 mt-3 pl-5 pr-5">
+                <!-- <ol>
+                    <li><b>Độ dài của mật khẩu:</b> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác
+                        định độ mạnh của nó. Mật khẩu càng dài thì càng khó để bị dò ra bằng các phương pháp tấn
+                        công dò mật khẩu.</li>
+                    <li><b>Đa dạng hóa ký tự:</b> Mật khẩu nên bao gồm các loại ký tự khác nhau như chữ cái (in hoa
+                        và thường), chữ số và ký tự đặc biệt. Việc sử dụng các loại ký tự đa dạng sẽ làm tăng độ khó
+                        cho việc đoán đúng mật khẩu.</li>
+                    <li><b>Không sử dụng các thông tin dễ đoán:</b> Tránh sử dụng các mật khẩu dễ đoán như tên người
+                        dùng, ngày sinh, dòng chữ liên tục trên bàn phím, hoặc các từ xuất hiện trong từ điển.</li>
+                    <li><b>Không sử dụng các mật khẩu trùng lặp: </b>Không sử dụng cùng một mật khẩu cho nhiều tài
+                        khoản. Nếu mật khẩu của một tài khoản bị phơi bày, hacker có thể sử dụng nó để truy cập vào
+                        các tài khoản khác của bạn.</li>
+                    <li><b>Các yêu cầu bảo mật của hệ thống:</b> Ngoài các yếu tố trên, các hệ thống có thể yêu cầu
+                        các tiêu chí bảo mật khác như sử dụng mật khẩu có ít nhất một chữ số, một ký tự đặc biệt,
+                        hoặc một ký tự in hoa.</li>
+                </ol> -->
+                <ol class="list-group">
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-primary">Độ dài của mật khẩu:</span> Độ dài của mật khẩu là yếu tố quan trọng nhất trong việc xác định độ mạnh của nó. Mật khẩu càng dài thì càng khó để bị dò ra bằng các phương pháp tấn công dò mật khẩu.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-success">Đa dạng hóa ký tự:</span> Mật khẩu nên bao gồm các loại ký tự khác nhau như chữ cái (in hoa và thường), chữ số và ký tự đặc biệt. Việc sử dụng các loại ký tự đa dạng sẽ làm tăng độ khó cho việc đoán đúng mật khẩu.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-danger">Không sử dụng các thông tin dễ đoán:</span> Tránh sử dụng các mật khẩu dễ đoán như tên người dùng, ngày sinh, dòng chữ liên tục trên bàn phím, hoặc các từ xuất hiện trong từ điển.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-warning">Không sử dụng các mật khẩu trùng lặp:</span> Không sử dụng cùng một mật khẩu cho nhiều tài khoản. Nếu mật khẩu của một tài khoản bị phơi bày, hacker có thể sử dụng nó để truy cập vào các tài khoản khác của bạn.
+                    </li>
+                    <li class="list-group-item">
+                        <span class="font-weight-bold text-info">Các yêu cầu bảo mật của hệ thống:</span> Ngoài các yếu tố trên, các hệ thống có thể yêu cầu các tiêu chí bảo mật khác như sử dụng mật khẩu có ít nhất một chữ số, một ký tự đặc biệt, hoặc một ký tự in hoa.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div id="tancongmatkhau" class="container noi-dung mt-5">
+        <h2 class="text-center text-success">3 dạng tấn công Password phổ biến:</h2>
+        <div class="row">
+            <div class="col mt-3 pl-5 pr-5">
+                <!-- <ul>
+                    <label for="" class="text-warning font-weight-bold">Brute Force Attack (tấn công dò mật
+                        khẩu)</label>
+                    <li>Kẻ tấn công sử dụng một công cụ mạnh mẽ, có khả năng thử nhiều username và password cùng lúc
+                        (từ dễ đến khó) cho tới khi đăng nhập thành công</li>
+                    <li>VD: đặt mật khẩu đơn giản như 123456, password123, daylamatkhau,…rất dễ bị tấn công brute
+                        force.</li>
+                </ul>
+
+                <ul>
+                    <label for="" class="text-warning font-weight-bold">Dictionary Attack (tấn công từ điển)</label>
+                    <li>Là một biến thể của Brute Force Attack</li>
+                    <li>Tuy nhiên kẻ tấn công nhắm vào các từ có nghĩa thay vì thử tất cả mọi khả năng</li>
+                    <li>Nhiều người dùng có xu hướng đặt mật khẩu là những từ đơn giản và có
+                        ngữ nghĩa. VD: motconvit, iloveyou,… Đây là lý do khiến Dictionary
+                        Attack có tỉ lệ thành công cao hơn</li>
+                </ul>
+
+                <ul>
+                    <label for="" class="text-warning font-weight-bold">Key Logger Attack (tấn công Key
+                        Logger)</label>
+                    <li>Kẻ tấn công lưu lại lịch sử các phím mà nạn nhân gõ, bao gồm cả ID,
+                        password hay nhiều nội dung khác</li>
+                    <li>Kẻ tấn công cần phải sử dụng một phần mềm độc hại (malware) đính
+                        kèm vào máy tính (hoặc điện thoại) nạn nhân, phần mềm đó sẽ ghi lại tất
+                        cả những ký tự mà nạn nhân nhập vào máy tính và gửi về cho kẻ tấn
+                        công. Phần mềm này được gọi là Key Logger</li>
+                    <li>Nguy hiểm hơn 2 cách tấn công trên, do việc đặt mật khẩu phức tạp
+                        không giúp ích gì trong trường hợp này</li>
+                </ul> -->
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="text-warning font-weight-bold">Brute Force Attack (tấn công dò mật khẩu)</label>
+                        <ul>
+                            <li>Kẻ tấn công sử dụng một công cụ mạnh mẽ, có khả năng thử nhiều username và password cùng lúc (từ dễ đến khó) cho tới khi đăng nhập thành công.</li>
+                            <li>VD: đặt mật khẩu đơn giản như 123456, password123, daylamatkhau,… rất dễ bị tấn công brute force.</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="text-warning font-weight-bold">Dictionary Attack (tấn công từ điển)</label>
+                        <ul>
+                            <li>Là một biến thể của Brute Force Attack.</li>
+                            <li>Tuy nhiên kẻ tấn công nhắm vào các từ có nghĩa thay vì thử tất cả mọi khả năng.</li>
+                            <li>Nhiều người dùng có xu hướng đặt mật khẩu là những từ đơn giản và có ngữ nghĩa. VD: motconvit, iloveyou,… Đây là lý do khiến Dictionary Attack có tỉ lệ thành công cao hơn.</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="text-warning font-weight-bold">Key Logger Attack (tấn công Key Logger)</label>
+                        <ul>
+                            <li>Kẻ tấn công lưu lại lịch sử các phím mà nạn nhân gõ, bao gồm cả ID, password hay nhiều nội dung khác.</li>
+                            <li>Kẻ tấn công cần phải sử dụng một phần mềm độc hại (malware) đính kèm vào máy tính (hoặc điện thoại) nạn nhân, phần mềm đó sẽ ghi lại tất cả những ký tự mà nạn nhân nhập vào máy tính và gửi về cho kẻ tấn công. Phần mềm này được gọi là Key Logger.</li>
+                            <li>Nguy hiểm hơn 2 cách tấn công trên, do việc đặt mật khẩu phức tạp không giúp ích gì trong trường hợp này.</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Section Kiểm tra mật khẩu -->
+    <div id="kiemtradomanhpwd" class="container noi-dung mt-5">
+        <!-- check mật khẩu -->
+        <div class="col-md-12 mt-3">
+            <h2 class="text-center text-success">Mật khẩu của bạn đã đủ mạnh chưa?</h2>
+            <label for="password" class="text-danger font-weight-bold">Mật khẩu</label>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control"
+                    placeholder="Nhập mật khẩu để kiểm tra" oninput="checkPasswordStrength()">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" onclick="togglePasswordVisibility()">
+                        <i id="eyeIcon" class="far fa-eye" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
+            <p class="text-secondary font-italic small">Lưu ý: Không nhập mật khẩu thật của bạn. Trang này không đảm bảo
+                bảo mật cao!</p>
 
-            <!-- end check mật khẩu -->
+            <hr>
+
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <label for=""><b>Độ mạnh: </b></label>
+                    <span id="passwordStrength" class="text-secondary"><i class="fas fa-user-shield"></i>
+                        NaN</span>
+                </div>
+                <div class="col-md-6 mt-2">
+                    <div class="progress">
+                        <div id="strengthProgressBar"
+                            class="progress-bar progress-bar-striped progress-bar-animated bg-danger" style="width:0%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <label for=""><b>Độ dài mật khẩu: </b></label>
+                    <span id="passwordLength" class="text-success">0 ký tự</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2"><label for=""><b>Các kiểu ký tự: </b></label></div>
+                <div class="col-md-6">
+                    <p id="ck1">In thường (a, b, c) <i id="check1" class="fas fa-user-check d-none"></i></p>
+                    <p id="ck2">In hoa (A, B, C) <i id="check2" class="fas fa-user-check d-none"></i></p>
+                </div>
+                <div class="col-md-6">
+                    <p id="ck4">Biểu tượng (?#@...) <i id="check4" class="fas fa-user-check d-none"></i></p>
+                    <p id="ck3">Chữ số (0, 1, 2,...) <i id="check3" class="fas fa-user-check d-none"></i></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><b>Số phím mỗi giây vào năm 2020:</b> 17042497,3 kps</p>
+
+                    <div id="crackTimeResult" class="mt-3"></div>
+                </div>
+
+            </div>
         </div>
-    </section>
+        <!-- end check mật khẩu -->
+    </div>
 
+
+
+    <!-- Foooter -->
     <!-- Footer -->
     <footer class="mt-5">
         <div class="row">
@@ -418,9 +558,9 @@
             <div class="col-md-3 mt-3 pl-3">
                 <h4 class="text-warning font-weight-bold">Mini project</h4>
                 <p>Học phần: Nhập môn An toàn thông tin</p>
-                <p>Lớp học phần: DHKHMT17B - 420300100404</p>
+                <p>Lớp học phần: DHKHMT17 - 42030010xxxx</p>
                 <p>Giảng viên hướng dẫn: TS Ngô Hữu Dũng</p>
-                <p>Sinh viên thực hiện: Hồ Phúc Lâm - 22680401</p>
+                <p>Sinh viên thực hiện: Hồ Phúc Lâm - MSSV</p>
                 <p>Thông tin liên hệ SV: 0374826297</p>
                 <p>TP. HCM, Tháng 4 năm 2024</p>
             </div>
@@ -428,13 +568,21 @@
         <hr>
         <div class="row mt-5">
             <div class="col">
-                <p class="text-center">&copy; 2024 Mini project's LamHPIT13. All Rights Reserved. LamHPIT is Powered by
+                <p class="text-center">&copy; 2024 Mini project's LamHPIT. All Rights Reserved. LamHPIT is Powered by
                     HTML, CSS, JS, Bootstrap 4.</p>
-                <p class="text-center">22680401 - Hồ Phúc Lâm - DHCNTT18A</p>
+                <p class="text-center">Hồ Phúc Lâm - DHTH18</p>
             </div>
         </div>
     </footer>
+    <!-- end footer -->
 
+    <!-- link to javascript -->
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/crypto-js.min.js"></script>
+    <script src="./js/wordlist.js"></script>
+    <script src="./js/dictonary.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
